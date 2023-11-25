@@ -1,24 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { ContasPageRoutingModule } from './contas-routing.module';
 
-import { DespesaListaComponent } from './components/despesa-lista/despesa-lista.page';
-import { DespesaCadastroComponent } from './components/contas-cadastro/contas-cadastro.component';
+import { ContasPage } from './contas.page';
 
 @NgModule({
   imports: [
-    FormsModule,
-    ReactiveFormsModule,
     CommonModule,
+    FormsModule,
     IonicModule,
-    ContasPageRoutingModule,
-    HttpClientModule,
+    ContasPageRoutingModule
   ],
-  declarations: [DespesaListaComponent, DespesaCadastroComponent]
+  declarations: [ContasPage]
 })
-export class DespesaPageModule {}
+export class ContasPageModule {}
+
