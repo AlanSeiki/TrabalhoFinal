@@ -13,9 +13,9 @@ const routes: Routes = [
       import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
-    path: 'autores',
+    path: 'movimentacao',
     loadChildren: () =>
-      import('./autores/autores.module').then((m) => m.AutoresPageModule),
+      import('./movimentacao/movimentacao.module').then((m) => m.MovimentacaoPageModule),
   },
 ];
 

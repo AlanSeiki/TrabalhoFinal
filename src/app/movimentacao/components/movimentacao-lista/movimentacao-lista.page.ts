@@ -6,23 +6,23 @@ import {
   ViewWillEnter,
   ViewWillLeave,
 } from '@ionic/angular';
-import { AutorInterface } from '../../types/autor.interface';
-import { AutorService } from '../../services/autor.service';
+import { LucroDespesaInterface } from '../../tipos/lucro_despesa.interface';
+import { LucroDespesaService } from '../../services/lucro-despesa.service';
 
 @Component({
-  selector: 'app-autores',
-  templateUrl: './autores-lista.page.html',
-  styleUrls: ['./autores-lista.page.scss'],
+  selector: 'app-movimentacao',
+  templateUrl: './movimentacao-lista.page.html',
+  styleUrls: ['./movimentacao-lista.page.scss'],
 })
-export class AutoresListaComponent
+export class MovimentacaoListaComponent
   implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave
 {
-  autores: AutorInterface[] = [];
+  dados: LucroDespesaInterface[] = [];
 
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private autorService: AutorService
+    private lucroDespesaService: LucroDespesaService
   ) {}
 
   ionViewWillEnter() {
@@ -45,10 +45,11 @@ export class AutoresListaComponent
   ngOnInit() {}
 
   listar() {
-    const observable = this.autorService.getAutores();
+    const observable = this.lucroDespesaService.getDados();
     observable.subscribe(
       (dados) => {
-        this.autores = dados;
+        console.log(dados)
+        this.dados = dados;
       },
       (erro) => {
         console.error(erro);
@@ -64,15 +65,15 @@ export class AutoresListaComponent
     );
   }
 
-  confirmarExclusao(autor: AutorInterface) {
+  confirmarExclusao(dado: LucroDespesaInterface) {
     this.alertController
       .create({
         header: 'Confirmação de exclusão',
-        message: `Deseja excluir o autor ${autor.nome}?`,
+        message: `Deseja excluir a movimentação ${dado.descricao}?`,
         buttons: [
           {
             text: 'Sim',
-            handler: () => this.excluir(autor),
+            handler: () => this.excluir(dado),
           },
           {
             text: 'Não',
@@ -82,15 +83,15 @@ export class AutoresListaComponent
       .then((alerta) => alerta.present());
   }
 
-  private excluir(autor: AutorInterface) {
-    if (autor.id) {
-      this.autorService.excluir(autor.id).subscribe(
+  private excluir(dado: LucroDespesaInterface) {
+    if (dado.id) {
+      this.lucroDespesaService.excluir(dado.id,'A').subscribe(
         () => this.listar(),
         (erro) => {
           console.error(erro);
           this.toastController
             .create({
-              message: `Não foi possível excluir o autor ${autor.nome}`,
+              message: `Não foi possível excluir o autor ${dado.descricao}`,
               duration: 5000,
               keyboardClose: true,
               color: 'danger',

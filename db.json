@@ -1,28 +1,78 @@
 {
-  "autores": [
+  "lucro": [
     {
-      "nome": "Martin Fowler",
-      "dataNascimento": "1976-02-25T00:00:00",
-      "genero": "M",
-      "id": 1
+      "id": 5,
+      "descricao": "asdas",
+      "data": "2023-11-25T21:34:43.551Z",
+      "banco": null,
+      "conta": null,
+      "valor": 12312,
+      "icone": "logo-steam"
     },
     {
-      "nome": "David Cockford",
-      "dataNascimento": "2000-04-28T20:30:34.363-03:00",
-      "genero": "M",
-      "id": 2
+      "id": 7,
+      "descricao": "Conta de Luz",
+      "data": "2023-11-25T21:28:36.647Z",
+      "banco": null,
+      "conta": null,
+      "valor": 200.5,
+      "icone": "logo-rss"
     },
     {
-      "nome": "Erich Gamma",
-      "dataNascimento": "1991-02-27T20:01:00",
-      "genero": "M",
-      "id": 3
+      "id": 8,
+      "descricao": "teste",
+      "data": "2023-11-25T20:10:49.164Z",
+      "banco": null,
+      "conta": null,
+      "valor": 12,
+      "icone": "game-controller-outline"
     },
     {
-      "nome": "Eric Evans",
-      "dataNascimento": "2023-11-15T00:15:00",
-      "genero": "M",
-      "id": 4
+      "id": 9,
+      "descricao": "teste",
+      "data": "2023-11-25T21:22:51.649Z",
+      "banco": null,
+      "conta": null,
+      "valor": 12,
+      "icone": "home"
+    },
+    {
+      "id": 10,
+      "descricao": "teste",
+      "data": "2023-11-25T21:23:12.140Z",
+      "banco": null,
+      "conta": null,
+      "valor": 213,
+      "icone": "home"
+    },
+    {
+      "id": 11,
+      "descricao": "teste",
+      "data": "2023-11-25T21:32:13.761Z",
+      "banco": null,
+      "conta": null,
+      "valor": 12,
+      "icone": "logo-apple"
+    }
+  ],
+  "despesa": [
+    {
+      "id": 1,
+      "descricao": "teste",
+      "data": "2023-11-25T21:34:56.552Z",
+      "banco": null,
+      "conta": null,
+      "valor": 2131,
+      "icone": "logo-steam"
+    },
+    {
+      "id": 2,
+      "descricao": "Viajem pra puta q paariu",
+      "data": "2023-11-25T21:35:02.788Z",
+      "banco": null,
+      "conta": null,
+      "valor": 213,
+      "icone": "airplane-outline"
     }
   ]
 }

@@ -8,7 +8,7 @@ export class AppComponent {
   public menus = [
     { title: 'Home', url: '/home', icon: 'home' },
     { title: 'Livros', url: '/livros', icon: 'book' },
-    { title: 'Autores', url: '/autores', icon: 'people-circle' },
+    { title: 'Movimentação', url: '/movimentacao', icon: 'people-circle' },
   ];
   constructor() {}
 }
