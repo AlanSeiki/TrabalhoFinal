@@ -1,78 +1,24 @@
 {
-  "lucro": [
-    {
-      "id": 5,
-      "descricao": "asdas",
-      "data": "2023-11-25T21:34:43.551Z",
-      "banco": null,
-      "conta": null,
-      "valor": 12312,
-      "icone": "logo-steam"
-    },
-    {
-      "id": 7,
-      "descricao": "Conta de Luz",
-      "data": "2023-11-25T21:28:36.647Z",
-      "banco": null,
-      "conta": null,
-      "valor": 200.5,
-      "icone": "logo-rss"
-    },
-    {
-      "id": 8,
-      "descricao": "teste",
-      "data": "2023-11-25T20:10:49.164Z",
-      "banco": null,
-      "conta": null,
-      "valor": 12,
-      "icone": "game-controller-outline"
-    },
-    {
-      "id": 9,
-      "descricao": "teste",
-      "data": "2023-11-25T21:22:51.649Z",
-      "banco": null,
-      "conta": null,
-      "valor": 12,
-      "icone": "home"
-    },
-    {
-      "id": 10,
-      "descricao": "teste",
-      "data": "2023-11-25T21:23:12.140Z",
-      "banco": null,
-      "conta": null,
-      "valor": 213,
-      "icone": "home"
-    },
-    {
-      "id": 11,
-      "descricao": "teste",
-      "data": "2023-11-25T21:32:13.761Z",
-      "banco": null,
-      "conta": null,
-      "valor": 12,
-      "icone": "logo-apple"
-    }
-  ],
-  "despesa": [
+  "listaGeral": [
     {
       "id": 1,
-      "descricao": "teste",
-      "data": "2023-11-25T21:34:56.552Z",
+      "descricao": "Lucro",
+      "data": "2023-11-25T23:35:11.934Z",
       "banco": null,
       "conta": null,
-      "valor": 2131,
-      "icone": "logo-steam"
+      "valor": 12000,
+      "icone": "game-controller-outline",
+      "tipo": "L"
     },
     {
       "id": 2,
-      "descricao": "Viajem pra puta q paariu",
-      "data": "2023-11-25T21:35:02.788Z",
+      "descricao": "Despesa",
+      "data": "2023-11-25T23:35:22.191Z",
       "banco": null,
       "conta": null,
-      "valor": 213,
-      "icone": "airplane-outline"
+      "valor": 2000,
+      "icone": "home",
+      "tipo": "D"
     }
   ]
 }

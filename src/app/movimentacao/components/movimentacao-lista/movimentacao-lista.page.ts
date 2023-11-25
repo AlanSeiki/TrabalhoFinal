@@ -85,7 +85,7 @@ export class MovimentacaoListaComponent
 
   private excluir(dado: LucroDespesaInterface) {
     if (dado.id) {
-      this.lucroDespesaService.excluir(dado.id,'A').subscribe(
+      this.lucroDespesaService.excluir(dado.id).subscribe(
         () => this.listar(),
         (erro) => {
           console.error(erro);

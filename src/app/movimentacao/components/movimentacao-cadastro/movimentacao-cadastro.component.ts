@@ -13,7 +13,6 @@ import { LucroDespesaService } from '../../services/lucro-despesa.service';
 export class LucroDespesaCadastroComponent implements OnInit {
   dadoId: number | null;
   dadoForm: FormGroup;
-  dadoTipo: string | null;
   tipo: string;
   icone:string = 'home';
 
@@ -32,17 +31,14 @@ export class LucroDespesaCadastroComponent implements OnInit {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
     this.dadoId = null;
     this.dadoForm = this.initForm();
-    this.dadoTipo = null;
   }
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    const tipo = this.activatedRoute.snapshot.paramMap.get('tipo');
     
     if (id) {
       this.dadoId = parseInt(id);
-      this.dadoTipo = tipo == null ? 'D' : tipo;
-      this.lucroDespesaService.getDado(this.dadoId, this.dadoTipo).subscribe((dado) => {
+      this.lucroDespesaService.getDado(this.dadoId).subscribe((dado) => {
         this.dadoForm = this.initForm(dado);
         this.icone = dado.icone;
       });
@@ -50,10 +46,7 @@ export class LucroDespesaCadastroComponent implements OnInit {
   }
 
   setSelectedIcon(iconName: string): void {
-    console.log(this.icone)
       this.icone = iconName;
-      console.log(this.icone)
-      console.log(iconName)
   }
   
 
@@ -65,12 +58,11 @@ export class LucroDespesaCadastroComponent implements OnInit {
       banco: new FormControl(null),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      icone: new FormControl(dado?.icone || this.icone),
+      icone: new FormControl(this.icone),
     });
   }
 
   onSubmit(tipo: string) {
-    console.log(tipo)
     const dado: LucroDespesaInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
