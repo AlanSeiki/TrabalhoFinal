@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MetasPage } from './metas.page';
 import { MetasCadastroComponent } from './compotentes/meta-cadastro';
+import { MetasVisualizadorCadastroComponent } from './meta_visualizador/meta-visualizador';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'visualizar/:id',
-    component: MetasCadastroComponent
+    component: MetasVisualizadorCadastroComponent
   }
 ];
 

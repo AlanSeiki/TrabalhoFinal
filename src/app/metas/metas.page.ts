@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ViewChild, ElementRef } from '@angular/core';
 import { MetasInterface } from './tipos/metas.interface';
 import {
   AlertController,
@@ -26,7 +26,6 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
   ) { }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     this.listar();
   }
 

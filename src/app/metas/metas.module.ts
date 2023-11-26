@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { MetasPageRoutingModule } from './metas-routin.module';
 import { MetasCadastroComponent } from './compotentes/meta-cadastro';
+import { MetasVisualizadorCadastroComponent } from './meta_visualizador/meta-visualizador';
 
 import { MetasPage } from './metas.page';
 
@@ -18,6 +19,6 @@ import { MetasPage } from './metas.page';
     MetasPageRoutingModule,
     HttpClientModule
   ],
-  declarations: [MetasPage,MetasCadastroComponent]
+  declarations: [MetasPage,MetasCadastroComponent,MetasVisualizadorCadastroComponent]
 })
 export class MetasPageModule {}

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { MetasInterface } from '../tipos/metas.interface';
 
 import { map } from 'rxjs/operators';
+import { LucroDespesaInterface } from 'src/app/movimentacao/tipos/lucro_despesa.interface';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,40 +16,22 @@ export class MetasService {
     private httpClient: HttpClient
   ) {}
 
-//   getDados(dataFinal:string,dataInicial:string,tipo:string): Observable<MetasInterface[]> {
-//     const dadosLocais = this.httpClient.get<MetasInterface[]>(this.url)
-  
-//     return dadosLocais.pipe(
-//       map(dadosLocais => {
-//         const dataAtual1 = new Date(dataInicial)
-//         const dataFinal1 = new Date(dataFinal)
-//         var dadosLucro;
-//         if(tipo != '' && dataInicial != '' && dataFinal != ''){
-//            dadosLucro = dadosLocais.filter(item => item.tipo === tipo && new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
-//         }else if(dataInicial != '' && dataFinal != '' && tipo == ''){
-//            dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
-//         }else if(dataInicial == '' && dataFinal != '' && tipo == ''){
-//           dadosLucro = dadosLocais.filter(item => new Date(item.data) <= dataFinal1);
-//        }else if(dataInicial != '' && dataFinal == '' && tipo == ''){
-//           dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1);
-//        }else if(dataInicial == '' && dataFinal == '' && tipo != ''){
-//           dadosLucro = dadosLocais.filter(item => item.tipo === tipo);
-//        }else{
-//            dadosLucro = dadosLocais;
-//         }
-        
-
-//         return dadosLucro;
-//       })
-//     );
-//   }
-
   getDados(): Observable<MetasInterface[]>{
     return this.httpClient.get<MetasInterface[]>(this.url)
   }
 
   getDado( id: number): Observable<MetasInterface> {
     return this.httpClient.get<MetasInterface>(`${this.url}/${id}`);
+  }
+
+  getMovimetnacao(id: number): Observable<LucroDespesaInterface[]>{
+    let url_mov = 'http://localhost:3000/listaGeral';
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
+    return dadosLocais.pipe(map(dadosLocais => {
+      var dadosMov;
+      dadosMov = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id)
+      return dadosMov;
+    }))
   }
 
   private adicionar( dado: MetasInterface)  {

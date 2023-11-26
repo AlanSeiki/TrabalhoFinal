@@ -57,7 +57,7 @@ export class MetasCadastroComponent implements OnInit {
       data_inicial: new FormControl(dado?.data_inicial || new Date().toISOString(),Validators.required),
       data_final: new FormControl(dado?.data_final || new Date().toISOString(),Validators.required),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      valor_mes: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
+      valor_mes: new FormControl(dado?.valor_mes),
       icone: new FormControl(dado?.icone || this.icone),
       ativo: new FormControl(true),
     });
