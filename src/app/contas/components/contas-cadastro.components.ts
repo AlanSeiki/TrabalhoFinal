@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ContasInterface } from '../tipos/contas-interface';
-/*import { ContasService } from '../../services/contas-service'; */
+import { ContasService } from '../service/contas.service';
 
 @Component({
   selector: 'app-contas-cadastro',
@@ -25,7 +25,7 @@ export class ContasCadastroComponent implements OnInit {
   constructor(
     private toastController: ToastController,
     private activatedRoute: ActivatedRoute,
-    /*private lucroDespesaService: ContasService,*/
+    private contasService: ContasService,
     private router: Router
   ) {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
@@ -34,7 +34,7 @@ export class ContasCadastroComponent implements OnInit {
   }
 
   ngOnInit() {
-    /*const id = this.activatedRoute.snapshot.paramMap.get('id');
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
     
     if (id) {
       this.dadoId = parseInt(id);
@@ -43,7 +43,7 @@ export class ContasCadastroComponent implements OnInit {
         this.icone = dado.icone;
       });
     }
- */ }
+  }
 
   setSelectedIcon(iconName: string): void {
       this.icone = iconName;
@@ -63,18 +63,18 @@ export class ContasCadastroComponent implements OnInit {
   }
 
   onSubmit(tipo: string) {
-    /*const dado: ContasInterface = {
+    const dado: ContasInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
 
-    this.lucroDespesaService.salvar(dado, tipo).subscribe(
-      () => this.router.navigate(['movimentacao']),
+    this.contasService.salvar(dado).subscribe(
+      () => this.router.navigate(['contas']),
       (erro) => {
         console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
+            message: `Não foi possível salvar a conta ${dado.descricao}`,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',
@@ -82,7 +82,7 @@ export class ContasCadastroComponent implements OnInit {
           .then((t) => t.present());
       }
     );
-    */}
+  }
 
   get descricao() {
     return this.dadoForm.get('descricao');

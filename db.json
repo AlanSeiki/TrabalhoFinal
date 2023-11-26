@@ -65,6 +65,17 @@
       "icone": "car-sport-outline",
       "meta": "2",
       "tipo": "M"
+    },
+    {
+      "id": 7,
+      "descricao": "Mouse",
+      "data": "2023-11-26T22:08:45.530Z",
+      "banco": null,
+      "conta": null,
+      "valor": 200,
+      "icone": "game-controller-outline",
+      "meta": null,
+      "tipo": "D"
     }
   ],
   "metas": [
