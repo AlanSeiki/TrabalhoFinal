@@ -12,7 +12,7 @@
   <ion-row>
     <ion-col>
       <ion-card>
-        <ion-card-header>
+        <ion-card-header style="padding-bottom: 0px;">
           <ion-row>
             <div style="width: 10%;">
               <ion-icon name="{{icone}}" size="large" color="{{color}}"></ion-icon>
@@ -22,34 +22,24 @@
             </div>
           </ion-row>
         </ion-card-header>
-        <ion-card-header style="text-align: center; padding: 10px;">
+        <ion-card-header style="text-align: center; padding: 10px; padding-top: 0px;">
           <ion-row>
-          <ion-text color="success" style="width: 50%;">
+          <ion-text color="success" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
             <ion-col>
-              <h2 style="margin-top: 0px;">Lucro</h2>
-              <h3>R$ {{lucro}}</h3>
+              <h3 style="margin: 0px;">R$ {{lucro}}</h3>
+              <h5 style="margin: 0px;">Lucros</h5>
             </ion-col>
           </ion-text>
-          <ion-text color="danger" style="width: 50%;">
+          <ion-text color="danger" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
             <ion-col>
-              <h2 style="margin-top: 0px;">Despesa</h2>
-              <h3>R$ {{despesa}}</h3>
+              <h3 style="margin: 0px;">R$ {{despesa}}</h3>
+              <h5 style="margin: 0px;">Despesas</h5>
             </ion-col>
           </ion-text>
         </ion-row>
         </ion-card-header>
       </ion-card>
     </ion-col>
-    <!-- <ion-col>
-      <ion-card>
-        <ion-card-header [routerLink]="['/movimentacao']">
-          <ion-card-title>
-            <ion-icon name="people-circle" class="ion-float-left ion-margin-end"></ion-icon>
-            Movimentação
-          </ion-card-title>
-        </ion-card-header>
-      </ion-card>
-    </ion-col> -->
   </ion-row>
   <div style="display: flex;justify-content: space-around;">
     <ion-list style="margin-top: 10px!important;width: 80%;">
@@ -61,6 +51,7 @@
           <ion-label>Descrição: {{dado.descricao}}</ion-label>
           <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: R${{dado.valor}}</ion-label>
           <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: R${{dado.valor}}</ion-label>
+          <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: R${{dado.valor}}</ion-label>
         </div>
       </ion-item>
     </ion-list>

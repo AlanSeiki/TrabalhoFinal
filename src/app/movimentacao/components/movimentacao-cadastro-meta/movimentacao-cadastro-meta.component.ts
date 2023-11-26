@@ -3,34 +3,66 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { LucroDespesaInterface } from '../../tipos/lucro_despesa.interface';
+import { MetasInterface } from '../../../metas/tipos/metas.interface';
 import { LucroDespesaService } from '../../services/lucro-despesa.service';
+import { MetasService } from '../../../metas/service/metas.service';
+import {
+  ViewWillEnter
+} from '@ionic/angular';
 
 @Component({
   selector: 'app-movimentacao-cadastro-meta',
   templateUrl: './movimentacao-cadastro-meta.component.html',
   styleUrls: ['./movimentacao-cadastro-meta.component.scss'],
 })
-export class MetaCadastroComponent implements OnInit {
+export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   dadoId: number | null;
   dadoForm: FormGroup;
   tipo: string;
-  icone:string = 'home';
-
+  icone: string = 'home';
+  dados: MetasInterface[] = [];
+  
   iconRows = [
     ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'logo-rss', 'logo-steam'],
-    ['wallet-outline', 'logo-apple', 'logo-xbox']
+    ['pizza-outline', 'people-circle-outline', 'car-sport-outline'],
+    ['wallet-outline', 'logo-apple', 'desktop-outline']
   ];
 
   constructor(
     private toastController: ToastController,
     private activatedRoute: ActivatedRoute,
     private lucroDespesaService: LucroDespesaService,
+    private metasService: MetasService,
     private router: Router
   ) {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
     this.dadoId = null;
     this.dadoForm = this.initForm();
+  }
+
+  ionViewWillEnter() {
+    console.log('ionViewWillEnter');
+    this.metas();
+  }
+
+  metas(){
+   const observable = this.metasService.getDados();
+    observable.subscribe(
+      (dados) => {
+        this.dados = dados;
+      },
+      (erro) => {
+        console.error(erro);
+        this.toastController
+          .create({
+            message: `Não foi possível listar as metas`,
+            duration: 5000,
+            keyboardClose: true,
+            color: 'danger',
+          })
+          .then((t) => t.present());
+      }
+    );
   }
 
   ngOnInit() {
@@ -53,13 +85,14 @@ export class MetaCadastroComponent implements OnInit {
   initForm(dado?: LucroDespesaInterface): FormGroup {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
-      descricao: new FormControl(dado?.descricao || '', Validators.required),
+      descricao: new FormControl("Meta"),
       data: new FormControl(new Date().toISOString()),
       banco: new FormControl(null),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
       icone: new FormControl(this.icone),
-      meta: new FormControl(null)
+      meta: new FormControl(null,Validators.required),
+      tipo: new FormControl("M")
     });
   }
 
@@ -68,7 +101,6 @@ export class MetaCadastroComponent implements OnInit {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
-
     this.lucroDespesaService.salvar(dado, tipo).subscribe(
       () => this.router.navigate(['movimentacao']),
       (erro) => {

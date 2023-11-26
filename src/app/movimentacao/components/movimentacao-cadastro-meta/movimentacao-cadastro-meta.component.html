@@ -12,13 +12,19 @@
 
 <ion-content>
   <ion-row style="margin: 20px;">
-    <ion-label *ngIf="tipo == 'D'">Despesa</ion-label>
-    <ion-label *ngIf="tipo == 'L'">Lucro</ion-label>
+    <ion-label>Meta</ion-label>
     <form [formGroup]="dadoForm" (ngSubmit)="onSubmit(tipo)" style="width: 100%;">
-      <ion-item>
-        <ion-label position="floating">Descrição:</ion-label>
-        <ion-input type="text" formControlName="descricao"></ion-input>
-      </ion-item>
+      
+        <ion-list>
+          <ion-item>
+            <ion-select placeholder="Metas" formControlName="meta">
+              <div slot="label">Meta <ion-text color="danger">(*)</ion-text></div>
+              <ion-select-option *ngFor="let dado of dados" value="{{dado.id}}">{{dado.descricao}}</ion-select-option>
+             
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      
 
       <ion-item>
         <ion-label position="floating">Valor:</ion-label>

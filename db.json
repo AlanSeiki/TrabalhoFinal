@@ -2,133 +2,36 @@
   "listaGeral": [
     {
       "id": 1,
-      "descricao": "Mais Novo",
-      "data": "2023-10-26T00:59:10.742Z",
+      "descricao": "Lucro",
+      "data": "2023-11-26T15:52:18.706Z",
       "banco": null,
       "conta": null,
-      "valor": 20,
+      "valor": 100,
       "icone": "home",
+      "meta": null,
       "tipo": "L"
+    },
+    {
+      "id": 2,
+      "descricao": "Despesa",
+      "data": "2023-11-26T15:52:28.165Z",
+      "banco": null,
+      "conta": null,
+      "valor": 80,
+      "icone": "home",
+      "meta": null,
+      "tipo": "D"
     },
     {
       "id": 3,
-      "descricao": "Segundo Velho",
-      "data": "2023-11-26T03:23:27.226Z",
+      "descricao": "Meta",
+      "data": "2023-11-26T15:52:36.558Z",
       "banco": null,
       "conta": null,
-      "valor": 12,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 4,
-      "descricao": "Segundo Novo",
-      "data": "2023-12-25T00:59:10.742Z",
-      "banco": null,
-      "conta": null,
-      "valor": 123,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 5,
-      "descricao": "Lucro data novo",
-      "data": "2023-12-26T00:59:10.742Z",
-      "banco": null,
-      "conta": null,
-      "valor": 123,
-      "icone": "home",
-      "tipo": "D"
-    },
-    {
-      "id": 6,
-      "descricao": "Lucro data novo",
-      "data": "2023-08-26T00:59:10.742Z",
-      "banco": null,
-      "conta": null,
-      "valor": 123,
-      "icone": "home",
-      "tipo": "D"
-    },
-    {
-      "id": 7,
-      "descricao": "LILI Canto",
-      "data": "2023-11-26T01:55:06.927Z",
-      "banco": null,
-      "conta": null,
-      "valor": 300,
-      "icone": "logo-steam",
-      "tipo": "L"
-    },
-    {
-      "id": 8,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 9,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 10,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 11,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 12,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 13,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
-    },
-    {
-      "id": 14,
-      "descricao": "asdas",
-      "data": "2023-11-26T03:21:59.745Z",
-      "banco": null,
-      "conta": null,
-      "valor": 21313,
-      "icone": "home",
-      "tipo": "L"
+      "valor": 400,
+      "icone": "car-sport-outline",
+      "meta": "2",
+      "tipo": "M"
     }
   ],
   "metas": [

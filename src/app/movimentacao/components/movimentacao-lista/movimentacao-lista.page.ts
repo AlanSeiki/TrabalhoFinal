@@ -52,7 +52,8 @@ export class MovimentacaoListaComponent
   }
 
   aplicarFiltros() {
-    this.listar()
+    this.listar();
+    this.setOpen(false)
   }
 
   listar() {
