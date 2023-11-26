@@ -9,7 +9,7 @@
 </ion-header>
 
  <ion-content>
-  <ion-list style="margin-top: 10px!important;">
+  <ion-list [inset]="true" style="margin-top: 10px!important;max-height: 500px;overflow-y: auto; ">
     <ion-item *ngFor="let dado of dados">
       <div style="margin-right: 5px;">
         <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
@@ -37,50 +37,55 @@
       <ion-icon name="cash"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="center">
+    <ion-fab-button color="tertiary" [routerLink]="['cadastro_meta','M']">
+      <ion-icon name="analytics"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
   <ion-fab vertical="bottom" horizontal="start">
     <ion-fab-button color="success" [routerLink]="['cadastro','L']">
       <ion-icon name="wallet"></ion-icon>
     </ion-fab-button>
   </ion-fab>
-
-  <ion-content class="ion-padding">
-    <ion-modal [isOpen]="isModalOpen">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Filtros</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Fechar</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <ion-list>
-            <!-- Filtro por Data -->
-            
-            <ion-item>
-              <ion-label>Data de:</ion-label>
-              <input type="date" [(ngModel)]="dataInicial" >
-            </ion-item>
-        
-            <ion-item>
-              <ion-label>Data até:</ion-label>
-              <input type="date" [(ngModel)]="dataFinal" >
-            </ion-item>
-        
-            <!-- Filtro por Tipo -->
-            <ion-item>
-              <ion-label>Tipo:</ion-label>
-              <ion-select [(ngModel)]="tipo">
-                <ion-select-option value="">Todos</ion-select-option>
-                <ion-select-option value="L">Lucro</ion-select-option>
-                <ion-select-option value="D">Despesa</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-list>
-          <ion-button expand="block" (click)="aplicarFiltros()" color="tertiary">Aplicar Filtros</ion-button>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
-  </ion-content>
 </ion-content>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Filtros</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Fechar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-list>
+          <!-- Filtro por Data -->
+          
+          <ion-item>
+            <ion-label>Data de:</ion-label>
+            <input type="date" [(ngModel)]="dataInicial" >
+          </ion-item>
+      
+          <ion-item>
+            <ion-label>Data até:</ion-label>
+            <input type="date" [(ngModel)]="dataFinal" >
+          </ion-item>
+      
+          <!-- Filtro por Tipo -->
+          <ion-item>
+            <ion-label>Tipo:</ion-label>
+            <ion-select [(ngModel)]="tipo">
+              <ion-select-option value="">Todos</ion-select-option>
+              <ion-select-option value="L">Lucro</ion-select-option>
+              <ion-select-option value="D">Despesa</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="block" (click)="aplicarFiltros()" color="tertiary">Aplicar Filtros</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>

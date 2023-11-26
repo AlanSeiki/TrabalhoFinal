@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { LucroDespesaInterface } from '../../tipos/lucro_despesa.interface';
-import { LucroDespesaService } from '../../services/lucro-despesa.service';
+import { MetasInterface } from '../tipos/metas.interface';
+import { MetasService } from '../service/metas.service';
 
 @Component({
-  selector: 'app-movimentacao-cadastro',
-  templateUrl: './movimentacao-cadastro.component.html',
-  styleUrls: ['./movimentacao-cadastro.component.scss'],
+  selector: 'app-meta-cadastro',
+  templateUrl: './meta-cadastro.html',
+  styleUrls: ['./meta-cadastro.scss'],
 })
-export class LucroDespesaCadastroComponent implements OnInit {
+export class MetasCadastroComponent implements OnInit {
   dadoId: number | null;
   dadoForm: FormGroup;
   tipo: string;
@@ -18,14 +18,14 @@ export class LucroDespesaCadastroComponent implements OnInit {
 
   iconRows = [
     ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'logo-rss', 'logo-steam'],
-    ['wallet-outline', 'logo-apple', 'logo-xbox']
+    ['pizza-outline', 'people-circle-outline', 'car-sport-outline'],
+    ['wallet-outline', 'logo-apple', 'desktop-outline']
   ];
 
   constructor(
     private toastController: ToastController,
     private activatedRoute: ActivatedRoute,
-    private lucroDespesaService: LucroDespesaService,
+    private metasService: MetasService,
     private router: Router
   ) {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
@@ -38,7 +38,7 @@ export class LucroDespesaCadastroComponent implements OnInit {
     
     if (id) {
       this.dadoId = parseInt(id);
-      this.lucroDespesaService.getDado(this.dadoId).subscribe((dado) => {
+      this.metasService.getDado(this.dadoId).subscribe((dado) => {
         this.dadoForm = this.initForm(dado);
         this.icone = dado.icone;
       });
@@ -50,27 +50,27 @@ export class LucroDespesaCadastroComponent implements OnInit {
   }
   
 
-  initForm(dado?: LucroDespesaInterface): FormGroup {
+  initForm(dado?: MetasInterface): FormGroup {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
       descricao: new FormControl(dado?.descricao || '', Validators.required),
-      data: new FormControl(new Date().toISOString()),
-      banco: new FormControl(null),
-      conta: new FormControl(null),
+      data_inicial: new FormControl(new Date().toISOString(),Validators.required),
+      data_final: new FormControl(new Date().toISOString(),Validators.required),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
+      valor_mes: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
       icone: new FormControl(this.icone),
-      meta: new FormControl(null)
+      ativo: new FormControl(true),
     });
   }
 
-  onSubmit(tipo: string) {
-    const dado: LucroDespesaInterface = {
+  onSubmit() {
+    const dado: MetasInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
 
-    this.lucroDespesaService.salvar(dado, tipo).subscribe(
-      () => this.router.navigate(['movimentacao']),
+    this.metasService.salvar(dado).subscribe(
+      () => this.router.navigate(['metas']),
       (erro) => {
         console.error(erro);
         this.toastController

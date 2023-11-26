@@ -6,11 +6,11 @@ import { LucroDespesaInterface } from '../../tipos/lucro_despesa.interface';
 import { LucroDespesaService } from '../../services/lucro-despesa.service';
 
 @Component({
-  selector: 'app-movimentacao-cadastro',
-  templateUrl: './movimentacao-cadastro.component.html',
-  styleUrls: ['./movimentacao-cadastro.component.scss'],
+  selector: 'app-movimentacao-cadastro-meta',
+  templateUrl: './movimentacao-cadastro-meta.component.html',
+  styleUrls: ['./movimentacao-cadastro-meta.component.scss'],
 })
-export class LucroDespesaCadastroComponent implements OnInit {
+export class MetaCadastroComponent implements OnInit {
   dadoId: number | null;
   dadoForm: FormGroup;
   tipo: string;

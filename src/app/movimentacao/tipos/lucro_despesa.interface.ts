@@ -7,5 +7,6 @@ export interface LucroDespesaInterface {
   conta?: number | null;
   valor: number;
   icone: string;
-  tipo: 'D' | 'L';
+  meta: number | null;
+  tipo: 'D' | 'L' | 'M';
 }

@@ -10,6 +10,7 @@ export class AppComponent {
     { title: 'Livros', url: '/livros', icon: 'book' },
     { title: 'Movimentação', url: '/movimentacao', icon: 'cart' },
     { title: 'Contas', url: '/contas', icon: 'pricetags' },
+    { title: 'Metas', url: '/metas', icon: 'analytics' },
   ];
   constructor() {}
 }

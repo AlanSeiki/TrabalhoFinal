@@ -115,7 +115,7 @@ export class LucroDespesaService {
   }
 
   private adicionar( dado: LucroDespesaInterface, tipo:string)  {
-    dado.tipo = tipo == 'D' ? "D" : "L";
+    dado.tipo = tipo == 'D' ? "D" : tipo == 'L' ? "L" : "M";
     return this.httpClient.post(this.url, dado);
   }
 
