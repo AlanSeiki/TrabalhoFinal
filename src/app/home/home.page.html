@@ -13,14 +13,34 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Saldo:</ion-card-title>
+          <ion-row>
+            <div style="width: 10%;">
+              <ion-icon name="{{icone}}" size="large" color="{{color}}"></ion-icon>
+            </div>
+            <div style="text-align: center; width: 90%;">
+              <ion-card-title color="{{color}}">Saldo: R$ {{saldo}}</ion-card-title>
+            </div>
+          </ion-row>
         </ion-card-header>
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing more, nothing less.
-        </ion-card-content>
+        <ion-card-header style="text-align: center; padding: 10px;">
+          <ion-row>
+          <ion-text color="success" style="width: 50%;">
+            <ion-col>
+              <h2 style="margin-top: 0px;">Lucro</h2>
+              <h3>R$ {{lucro}}</h3>
+            </ion-col>
+          </ion-text>
+          <ion-text color="danger" style="width: 50%;">
+            <ion-col>
+              <h2 style="margin-top: 0px;">Despesa</h2>
+              <h3>R$ {{despesa}}</h3>
+            </ion-col>
+          </ion-text>
+        </ion-row>
+        </ion-card-header>
       </ion-card>
     </ion-col>
-    <ion-col>
+    <!-- <ion-col>
       <ion-card>
         <ion-card-header [routerLink]="['/movimentacao']">
           <ion-card-title>
@@ -29,9 +49,10 @@
           </ion-card-title>
         </ion-card-header>
       </ion-card>
-    </ion-col>
+    </ion-col> -->
   </ion-row>
-    <ion-list style="margin-top: 10px!important;">
+  <div style="display: flex;justify-content: space-around;">
+    <ion-list style="margin-top: 10px!important;width: 80%;">
       <ion-item *ngFor="let dado of dados">
         <div style="margin-right: 5px;">
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
@@ -43,4 +64,5 @@
         </div>
       </ion-item>
     </ion-list>
+  </div>  
 </ion-content>

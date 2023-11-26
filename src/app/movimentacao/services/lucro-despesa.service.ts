@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LucroDespesaInterface } from '../tipos/lucro_despesa.interface';
 
-
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,15 +20,68 @@ export class LucroDespesaService {
   }
 
   getDadosSimplificado(): Observable<LucroDespesaInterface[]> {
-    return this.httpClient.get<LucroDespesaInterface[]>(this.url);
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+  
+    return dadosLocais.pipe(
+      map(dadosLocais => {
+        // Ordena os dados pela data em ordem decrescente
+        const dadosOrdenados = dadosLocais.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
+  
+        // Pega os primeiros 5 registros
+        const ultimos5Registros = dadosOrdenados.slice(0, 5);
+  
+        // Retorna os últimos 5 registros
+        return ultimos5Registros;
+      })
+    );
   }
+  getSaldo(): Observable<number> {
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+    return dadosLocais.pipe(
+      map(dadosLocais => {
+        const dataAtual = new Date();
 
-  getSaldo(): Observable<LucroDespesaInterface[]> {
-    // Combina as duas solicitações usando forkJoin
-    return  this.httpClient.get<LucroDespesaInterface[]>(this.url)
-     
+        // Filtra apenas os elementos com tipo igual a 'L' e data até a data atual
+        const dadosLucro = dadosLocais.filter(item => item.tipo === 'L' && new Date(item.data) <= dataAtual);
+  
+        // Filtra apenas os elementos com tipo igual a 'D' e data até a data atual
+        const dadosDespesa = dadosLocais.filter(item => item.tipo === 'D' && new Date(item.data) <= dataAtual);
+  
+        // Calcula a soma dos valores de lucro
+        const saldoLucro = dadosLucro.reduce((soma, valor) => soma + valor.valor, 0);
+  
+        // Calcula a soma dos valores de despesa
+        const saldoDespesa = dadosDespesa.reduce((soma, valor) => soma + valor.valor, 0);
+  
+        // Calcula o saldo como a diferença entre lucro e despesa
+        const saldo = saldoLucro - saldoDespesa;
+  
+        return saldo;
+      })
+    );
   }
-
+  getLucro(): Observable<number> {
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+    return dadosLocais.pipe(
+      map(dadosLocais => {
+        const dataAtual = new Date();
+        const dadosLucro = dadosLocais.filter(item => item.tipo === 'L' && new Date(item.data) <= dataAtual);
+        const dadosOrdenados = dadosLucro.reduce((soma,valor) => soma + valor.valor, 0);
+        return dadosOrdenados;
+      })
+    );
+  }
+  getDespesa(): Observable<number> {
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+    return dadosLocais.pipe(
+      map(dadosLocais => {
+        const dataAtual = new Date();
+        const dadosLucro = dadosLocais.filter(item => item.tipo === 'D' && new Date(item.data) <= dataAtual);
+        const dadosOrdenados = dadosLucro.reduce((soma,valor) => soma + valor.valor, 0);
+        return dadosOrdenados;
+      })
+    );
+  }
   excluir( id: number): Observable<Object> {
     return this.httpClient.delete(`${this.url}/${id}`);
   }

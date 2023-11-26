@@ -2,23 +2,73 @@
   "listaGeral": [
     {
       "id": 1,
-      "descricao": "Lucro",
-      "data": "2023-11-25T23:35:11.934Z",
+      "descricao": "Mais Novo",
+      "data": "2023-10-26T00:59:10.742Z",
       "banco": null,
       "conta": null,
-      "valor": 12000,
-      "icone": "game-controller-outline",
+      "valor": 20,
+      "icone": "home",
       "tipo": "L"
     },
     {
       "id": 2,
-      "descricao": "Despesa",
-      "data": "2023-11-25T23:35:22.191Z",
+      "descricao": "Mais Velho",
+      "data": "2023-12-26T00:59:26.141Z",
       "banco": null,
       "conta": null,
-      "valor": 2000,
+      "valor": 30000000,
       "icone": "home",
       "tipo": "D"
+    },
+    {
+      "id": 3,
+      "descricao": "Segundo Velho",
+      "data": "2023-12-26T00:59:10.742Z",
+      "banco": null,
+      "conta": null,
+      "valor": 12300000,
+      "icone": "home",
+      "tipo": "L"
+    },
+    {
+      "id": 4,
+      "descricao": "Segundo Novo",
+      "data": "2023-12-25T00:59:10.742Z",
+      "banco": null,
+      "conta": null,
+      "valor": 123,
+      "icone": "home",
+      "tipo": "L"
+    },
+    {
+      "id": 5,
+      "descricao": "Lucro data novo",
+      "data": "2023-12-26T00:59:10.742Z",
+      "banco": null,
+      "conta": null,
+      "valor": 123,
+      "icone": "home",
+      "tipo": "D"
+    },
+    {
+      "id": 6,
+      "descricao": "Lucro data novo",
+      "data": "2023-08-26T00:59:10.742Z",
+      "banco": null,
+      "conta": null,
+      "valor": 123,
+      "icone": "home",
+      "tipo": "D"
+    },
+    {
+      "id": 7,
+      "descricao": "LILI Canto",
+      "data": "2023-11-26T01:55:06.927Z",
+      "banco": null,
+      "conta": null,
+      "valor": 300,
+      "icone": "logo-steam",
+      "tipo": "L"
     }
   ]
 }
