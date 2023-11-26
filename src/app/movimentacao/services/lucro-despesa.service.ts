@@ -15,8 +15,32 @@ export class LucroDespesaService {
     private httpClient: HttpClient
   ) {}
 
-  getDados(): Observable<LucroDespesaInterface[]> {
-    return  this.httpClient.get<LucroDespesaInterface[]>(this.url)
+  getDados(dataFinal:string,dataInicial:string,tipo:string): Observable<LucroDespesaInterface[]> {
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+  
+    return dadosLocais.pipe(
+      map(dadosLocais => {
+        const dataAtual1 = new Date(dataInicial)
+        const dataFinal1 = new Date(dataFinal)
+        var dadosLucro;
+        if(tipo != '' && dataInicial != '' && dataFinal != ''){
+           dadosLucro = dadosLocais.filter(item => item.tipo === tipo && new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
+        }else if(dataInicial != '' && dataFinal != '' && tipo == ''){
+           dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
+        }else if(dataInicial == '' && dataFinal != '' && tipo == ''){
+          dadosLucro = dadosLocais.filter(item => new Date(item.data) <= dataFinal1);
+       }else if(dataInicial != '' && dataFinal == '' && tipo == ''){
+          dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1);
+       }else if(dataInicial == '' && dataFinal == '' && tipo != ''){
+          dadosLucro = dadosLocais.filter(item => item.tipo === tipo);
+       }else{
+           dadosLucro = dadosLocais;
+        }
+        
+
+        return dadosLucro;
+      })
+    );
   }
 
   getDadosSimplificado(): Observable<LucroDespesaInterface[]> {

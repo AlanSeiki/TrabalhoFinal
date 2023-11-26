@@ -12,13 +12,16 @@ import { LucroDespesaService } from '../../services/lucro-despesa.service';
 @Component({
   selector: 'app-movimentacao',
   templateUrl: './movimentacao-lista.page.html',
-  styleUrls: ['./movimentacao-lista.page.scss'],
+  styleUrls: ['./movimentacao-lista.page.scss']
 })
 export class MovimentacaoListaComponent
   implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave
 {
   dados: LucroDespesaInterface[] = [];
-
+  isModalOpen = false;
+  dataInicial: string = ''; // Variável para armazenar a data inicial
+  dataFinal: string = '';   // Variável para armazenar a data final
+  tipo: string = '';        // Variável para armazenar o tipo (L ou D)
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
@@ -44,11 +47,18 @@ export class MovimentacaoListaComponent
 
   ngOnInit() {}
 
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+
+  aplicarFiltros() {
+    this.listar()
+  }
+
   listar() {
-    const observable = this.lucroDespesaService.getDados();
+    const observable = this.lucroDespesaService.getDados(this.dataFinal,this.dataInicial,this.tipo);
     observable.subscribe(
       (dados) => {
-        console.log(dados)
         this.dados = dados;
       },
       (erro) => {
