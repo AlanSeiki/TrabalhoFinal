@@ -119,13 +119,14 @@ export class LucroDespesaService {
     return this.httpClient.post(this.url, dado);
   }
 
-  private atualizar( dado: LucroDespesaInterface) {
+  private atualizar( dado: LucroDespesaInterface, tipo:string) {
+    dado.tipo = tipo == 'D' ? "D" : "L";
     return this.httpClient.put(`${this.url}/${dado.id}`, dado);
   }
 
   salvar( dado: LucroDespesaInterface, tipo:string ) {
     if(dado.id) {
-      return this.atualizar(dado);
+      return this.atualizar(dado,tipo);
     } else {
       return this.adicionar(dado,tipo);
     }
