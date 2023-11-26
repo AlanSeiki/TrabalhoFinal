@@ -43,10 +43,25 @@ export class MetasService {
   }
 
   salvar( dado: MetasInterface ) {
+    const valorMeta = dado.valor;
+    const dataInicio = new Date(dado.data_inicial);
+    const dataFinal = new Date(dado.data_final);
+    const metaMensal = this.calcularValorMensal(valorMeta, dataInicio, dataFinal);
+    dado.valor_mes = metaMensal;
     if(dado.id) {
       return this.atualizar(dado);
     } else {
       return this.adicionar(dado);
     }
+  }
+
+  calcularValorMensal(valor: number, dataInicio: Date, dataFinal: Date): number{
+  const diferencaEmMilissegundos = dataFinal.getTime() - dataInicio.getTime();
+
+  const diferencaEmMeses = diferencaEmMilissegundos / (1000 * 60 * 60 * 24 * 30);
+
+  const mediaMensal = valor / diferencaEmMeses;
+
+  return parseFloat(mediaMensal.toFixed(2));
   }
 }

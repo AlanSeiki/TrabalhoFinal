@@ -71,10 +71,10 @@
     {
       "id": 1,
       "descricao": "teste",
-      "data_inicial": "2023-12-03",
+      "data_inicial": "2023-07-03",
       "data_final": "2023-11-28",
       "valor": 213,
-      "valor_mes": 213,
+      "valor_mes": 43.18,
       "icone": "people-circle-outline",
       "ativo": true
     },
@@ -84,7 +84,7 @@
       "data_inicial": "2023-11-26",
       "data_final": "2025-11-26",
       "valor": 70000,
-      "valor_mes": 550,
+      "valor_mes": 2872.78,
       "icone": "car-sport-outline",
       "ativo": true
     }
