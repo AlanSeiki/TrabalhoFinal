@@ -30,15 +30,12 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
   }
 
   ionViewWillLeave() {
-    console.log('ionViewWillLeave');
   }
 
   ionViewDidLeave() {
-    console.log('ionViewDidLeave');
   }
 
   ngOnInit() {}

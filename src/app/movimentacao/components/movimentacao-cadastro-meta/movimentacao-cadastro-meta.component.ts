@@ -41,7 +41,6 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     this.metas();
   }
 

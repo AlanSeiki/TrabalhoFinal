@@ -5,9 +5,16 @@ import { MetasInterface } from '../tipos/metas.interface';
 
 import { map } from 'rxjs/operators';
 import { LucroDespesaInterface } from 'src/app/movimentacao/tipos/lucro_despesa.interface';
+
+interface DadosAgrupadosPorMes {
+  mes: string;
+  soma: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class MetasService {
 
   private url = 'http://localhost:3000/metas';
@@ -24,14 +31,32 @@ export class MetasService {
     return this.httpClient.get<MetasInterface>(`${this.url}/${id}`);
   }
 
-  getMovimetnacao(id: number): Observable<LucroDespesaInterface[]>{
+  getMovimetnacao(id: number): Observable<DadosAgrupadosPorMes[]> {
     let url_mov = 'http://localhost:3000/listaGeral';
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
-    return dadosLocais.pipe(map(dadosLocais => {
-      var dadosMov;
-      dadosMov = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id)
-      return dadosMov;
-    }))
+    const dados = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
+    return dados.pipe(
+      map(dadosLocais => {
+        // Filtra os dados para considerar apenas itens do tipo 'M' com a meta específica
+        const dadosFiltrados = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id);
+        // Agrupa os dados por mês e calcula a soma para cada mês
+        const dadosAgrupados: DadosAgrupadosPorMes[] = [];
+  
+        dadosFiltrados.forEach(item => {
+          const mes = new Date(item.data).toISOString().slice(0, 7); // Obtém o ano e o mês
+          const indice = dadosAgrupados.findIndex(x => x.mes === mes);
+  
+          if (indice !== -1) {
+            // Se o mês já existe, adiciona o valor ao total existente
+            dadosAgrupados[indice].soma += item.valor;
+          } else {
+            // Se o mês não existe, cria um novo objeto de mês
+            dadosAgrupados.push({ mes, soma: item.valor });
+          }
+        });
+  
+        return dadosAgrupados;
+      })
+    );
   }
 
   private adicionar( dado: MetasInterface)  {

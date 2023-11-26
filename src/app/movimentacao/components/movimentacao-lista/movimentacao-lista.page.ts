@@ -29,20 +29,16 @@ export class MovimentacaoListaComponent
   ) {}
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     this.listar();
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
   }
 
   ionViewWillLeave() {
-    console.log('ionViewWillLeave');
   }
 
   ionViewDidLeave() {
-    console.log('ionViewDidLeave');
   }
 
   ngOnInit() {}

@@ -31,7 +31,6 @@ export class HomePage implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLe
     }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
     this.listar();
     this.getSaldo();
     this.getLucro();
@@ -39,15 +38,12 @@ export class HomePage implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLe
   }
 
   ionViewDidEnter() {
-    console.log('ionViewDidEnter');
   }
 
   ionViewWillLeave() {
-    console.log('ionViewWillLeave');
   }
 
   ionViewDidLeave() {
-    console.log('ionViewDidLeave');
   }
 
   ngOnInit() {}

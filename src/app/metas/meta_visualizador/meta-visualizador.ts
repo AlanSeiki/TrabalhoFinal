@@ -50,10 +50,10 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
           if (Array.isArray(dadosArray) && dadosArray.length > 0) {
             // Mapeando os dados para o formato esperado pelo gráfico
             const data = dadosArray.map(dados => ({
-              year: format(new Date(dados.data), 'dd/MM/yyyy'),
-              count: dados.valor
+              year: dados.mes,
+              count: dados.soma
             }));
-      
+
             const valorLinhaFixa = this.valor_mes; // Valor fixo para a linha
       
             const ctx = document.getElementById('myChart');
@@ -70,14 +70,16 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
                         label: 'Valor adicionado a Meta',
                         data: data.map(row => row.count),
                         backgroundColor: 'azure', // Cor das barras
+                        order: 2
                       },
                       {
                         type: 'line',
-                        label: 'Linha Fixa',
+                        label: 'Valor Meta',
                         data: Array(data.length).fill(valorLinhaFixa),
                         borderColor: 'red', // Cor da linha
                         borderWidth: 2, // Largura da linha
-                        fill: true // Não preencher abaixo da linha
+                        fill: false, // Não preencher abaixo da linha
+                        order: 1
                       }
                     ]
                   }
