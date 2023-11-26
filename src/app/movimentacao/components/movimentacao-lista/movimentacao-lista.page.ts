@@ -19,9 +19,9 @@ export class MovimentacaoListaComponent
 {
   dados: LucroDespesaInterface[] = [];
   isModalOpen = false;
-  dataInicial: string = ''; // Variável para armazenar a data inicial
-  dataFinal: string = '';   // Variável para armazenar a data final
-  tipo: string = '';        // Variável para armazenar o tipo (L ou D)
+  dataInicial: string = '';
+  dataFinal: string = '';  
+  tipo: string = '';
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,

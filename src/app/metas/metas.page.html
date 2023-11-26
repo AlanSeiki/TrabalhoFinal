@@ -7,7 +7,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list style="margin-top: 10px!important;">
+    <ion-list  style="margin-top: 10px!important;max-height: 500px;overflow-y: auto;">
       <ion-item *ngFor="let dado of dados">
         <div style="margin-right: 5px;">
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
@@ -15,6 +15,20 @@
         <div style="width: 70%;">
           <ion-label>Descrição: {{dado.descricao}}</ion-label>
           <ion-label>Valor: R${{dado.valor}}</ion-label>
+        </div>
+        <div>
+          <ion-buttons>
+            <ion-button color="primary" [routerLink]="['editar', dado.id]">
+              <ion-icon name="create" slot="icon-only"></ion-icon> 
+            </ion-button>
+            <ion-button color="primary" [routerLink]="['visualizar', dado.id]">
+              <ion-icon name="list-outline"  slot="icon-only"></ion-icon>
+            </ion-button>
+            <ion-button color="primary" (click)="inativar(dado)">
+              <ion-icon *ngIf="dado.ativo == false" name="power-outline" slot="icon-only" color="danger" ></ion-icon>
+              <ion-icon *ngIf="dado.ativo == true" name="power-outline" slot="icon-only" color="success" ></ion-icon>
+            </ion-button>
+          </ion-buttons>
         </div>
       </ion-item>
     </ion-list>

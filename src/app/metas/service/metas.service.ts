@@ -47,10 +47,6 @@ export class MetasService {
     return this.httpClient.get<MetasInterface[]>(this.url)
   }
 
-  excluir( id: number): Observable<Object> {
-    return this.httpClient.delete(`${this.url}/${id}`);
-  }
-
   getDado( id: number): Observable<MetasInterface> {
     return this.httpClient.get<MetasInterface>(`${this.url}/${id}`);
   }

@@ -4,7 +4,7 @@ export interface MetasInterface {
   descricao: string;
   valor_mes: number;
   valor: number;
-  data_inical: Date;
+  data_inicial: Date;
   data_final: Date;
   ativo: boolean;
   icone: string;   

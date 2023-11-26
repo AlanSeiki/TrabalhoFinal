@@ -8,6 +8,7 @@ import {
   ViewWillLeave,
 } from '@ionic/angular';
 import { MetasService } from './service/metas.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-metas',
@@ -20,7 +21,8 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
-    private metasService: MetasService
+    private metasService: MetasService,
+    private router: Router
   ) { }
 
   ionViewWillEnter() {
@@ -42,6 +44,24 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
 
   ngOnInit() {}
 
+  inativar(dado: MetasInterface){
+    dado.ativo = dado.ativo == true ? false : true
+    this.metasService.salvar(dado).subscribe(
+      () => this.router.navigate(['metas']),
+      (erro) => {
+        console.error(erro);
+        this.toastController
+          .create({
+            message: `Não foi possível inativar a meta ${dado.descricao}`,
+            duration: 5000,
+            keyboardClose: true,
+            color: 'danger',
+          })
+          .then((t) => t.present());
+      }
+    );
+  }
+  
   listar() {
     const observable = this.metasService.getDados();
     observable.subscribe(
