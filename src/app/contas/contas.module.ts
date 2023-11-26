@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ContasPageRoutingModule } from './contas-routing.module';
 
 import { ContasPage } from './contas.page';
-import { ContasCadastroComponent } from './components/contas-cadastro.components';
+import { ContasCadastroComponent } from './components/contas-cadastro.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({

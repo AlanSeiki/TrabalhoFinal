@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContasInterface } from '../tipos/contas-interface';
 
-import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })

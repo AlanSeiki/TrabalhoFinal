@@ -7,8 +7,8 @@ import { ContasService } from '../service/contas.service';
 
 @Component({
   selector: 'app-contas-cadastro',
-  templateUrl: './contas-cadastro.components.html',
-  styleUrls: ['./contas-cadastro.components.scss'],
+  templateUrl: './contas-cadastro.component.html',
+  styleUrls: ['./contas-cadastro.component.scss'],
 })
 export class ContasCadastroComponent implements OnInit {
   dadoId: number | null;

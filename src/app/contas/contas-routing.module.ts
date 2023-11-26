@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ContasCadastroComponent} from '../contas/components/contas-cadastro.components';
+import {ContasCadastroComponent} from './components/contas-cadastro.component';
 
 import { ContasPage } from './contas.page';
 
