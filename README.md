@@ -1,4 +1,4 @@
-# ionic-livro-app
+# ionic-financas-app
 
 Projeto de exemplo da disciplina de Programação para Plataformas Móveis
 
