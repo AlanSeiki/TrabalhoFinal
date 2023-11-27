@@ -45,7 +45,7 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   }
 
   metas(){
-   const observable = this.metasService.getDados();
+   const observable = this.metasService.getDadosAtivo();
     observable.subscribe(
       (dados) => {
         this.dados = dados;

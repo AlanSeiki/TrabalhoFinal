@@ -21,17 +21,19 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
   icone?: string;  
   private grafico?: Chart;
   dados: any = [];
+  porcentagemConcluida:number = 25;
+  valorTotalN:number = 0;
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private metasService: MetasService,
-    private toastController: ToastController
+    private metasService: MetasService
   ) {
     
   }
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    
+    var valor = 0;
     if (id) {
       let ids = parseInt(id);
       this.metasService.getDado(ids).subscribe((dado) => {
@@ -43,7 +45,16 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
         this.data_final = dado.data_final;
         this.ativo = dado.ativo;
         this.icone = dado.icone;
+        valor = dado.valor;
       });
+
+      const valorTotal = this.metasService.getValor(parseInt(id));
+      valorTotal.subscribe(
+        (dados)=>{
+          this.valorTotalN = dados;
+          this.porcentagemConcluida = valor/dados;
+        }
+      )
       const observable = this.metasService.getMovimetnacao(parseInt(id));
       observable.subscribe(
         (dadosArray) => {

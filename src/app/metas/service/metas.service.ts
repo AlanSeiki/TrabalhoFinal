@@ -27,6 +27,13 @@ export class MetasService {
     return this.httpClient.get<MetasInterface[]>(this.url)
   }
 
+  getDadosAtivo(): Observable<MetasInterface[]>{
+    return this.httpClient.get<MetasInterface[]>(this.url).pipe(map(dados => {
+      return dados.filter(item => item.ativo == true);
+    })
+    )
+  }
+
   getDado( id: number): Observable<MetasInterface> {
     return this.httpClient.get<MetasInterface>(`${this.url}/${id}`);
   }
@@ -55,6 +62,24 @@ export class MetasService {
         });
   
         return dadosAgrupados;
+      })
+    );
+  }
+
+  getValor(id: number){
+    let url_mov = 'http://localhost:3000/listaGeral';
+    const dados = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
+    return dados.pipe(
+      map(dadosLocais => {
+        // Filtra os dados para considerar apenas itens do tipo 'M' com a meta específica
+        const dadosFiltrados = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id);
+        // Agrupa os dados por mês e calcula a soma para cada mês
+        var valorTotal = 0;
+        dadosFiltrados.forEach(item => {
+          valorTotal+=item.valor
+        });
+  
+        return valorTotal;
       })
     );
   }

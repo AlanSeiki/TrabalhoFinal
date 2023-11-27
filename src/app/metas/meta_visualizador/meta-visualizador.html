@@ -18,10 +18,14 @@
     <div style="width: 100%;">
       <h1 style="width: 100%;">R${{valor}}</h1>
     </div>
+    <div class="marc">
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="porcentagemConcluida"><span class="spans">{{valorTotalN}}</span></div>
+      </div>
+    </div>
   </div>
-  <div style="display: flex;justify-content: center;align-items: center;">
+  <div style="display: flex;justify-content: center;align-items: center; margin-top: 20px;">
     <div style="background-color: rgb(8, 8, 8);width: 90%;"><canvas id="myChart" width="90%" height="90%"></canvas></div>
   </div>
-
 </ion-content>
   
