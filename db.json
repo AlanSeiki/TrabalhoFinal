@@ -2,78 +2,67 @@
   "listaGeral": [
     {
       "id": 1,
-      "descricao": "Lucro",
-      "data": "2023-11-26T15:52:18.706Z",
+      "descricao": "Teste",
+      "data": "2023-11-26",
       "banco": null,
-      "conta": null,
+      "conta": 2,
       "valor": 100,
-      "icone": "home",
+      "icone": "people-circle-outline",
       "meta": null,
-      "tipo": "L"
+      "tipo": "D"
     },
     {
       "id": 2,
-      "descricao": "Despesa",
-      "data": "2023-11-26T15:52:28.165Z",
+      "descricao": "Teste",
+      "data": "2023-12-26T00:00:00.000Z",
       "banco": null,
-      "conta": null,
-      "valor": 80,
-      "icone": "home",
+      "conta": 2,
+      "valor": 100,
+      "icone": "people-circle-outline",
       "meta": null,
       "tipo": "D"
     },
     {
       "id": 3,
-      "descricao": "Meta",
-      "data": "2023-11-26T15:52:36.558Z",
+      "descricao": "Teste",
+      "data": "2023-11-26",
       "banco": null,
-      "conta": null,
-      "valor": 400,
-      "icone": "car-sport-outline",
-      "meta": "2",
-      "tipo": "M"
+      "conta": 2,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
     },
     {
       "id": 4,
-      "descricao": "Meta",
-      "data": "2023-11-26T21:45:16.924Z",
+      "descricao": "Teste",
+      "data": "2023-12-26T00:00:00.000Z",
       "banco": null,
-      "conta": null,
-      "valor": 3000,
-      "icone": "car-sport-outline",
-      "meta": "2",
-      "tipo": "M"
+      "conta": 2,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
     },
     {
       "id": 5,
-      "descricao": "Meta",
-      "data": "2023-12-26T21:45:16.924Z",
+      "descricao": "Teste",
+      "data": "2023-11-26",
       "banco": null,
-      "conta": null,
-      "valor": 2000,
-      "icone": "car-sport-outline",
-      "meta": "2",
-      "tipo": "M"
+      "conta": 2,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
     },
     {
       "id": 6,
-      "descricao": "Meta",
-      "data": "2023-11-26T21:45:16.924Z",
+      "descricao": "Teste",
+      "data": "2023-12-26T00:00:00.000Z",
       "banco": null,
-      "conta": null,
+      "conta": 2,
       "valor": 100,
-      "icone": "car-sport-outline",
-      "meta": "2",
-      "tipo": "M"
-    },
-    {
-      "id": 7,
-      "descricao": "Mouse",
-      "data": "2023-11-26T22:08:45.530Z",
-      "banco": null,
-      "conta": null,
-      "valor": 200,
-      "icone": "game-controller-outline",
+      "icone": "people-circle-outline",
       "meta": null,
       "tipo": "D"
     }
@@ -104,9 +93,18 @@
     {
       "id": 1,
       "descricao": "Teste",
+      "valor": 1000,
+      "parcelas": 6,
+      "data": "2023-11-26",
+      "icone": "home"
+    },
+    {
+      "id": 2,
+      "descricao": "Teste",
       "valor": 200,
       "parcelas": 2,
-      "icone": "game-controller-outline"
+      "data": "2023-11-26",
+      "icone": "people-circle-outline"
     }
   ]
 }

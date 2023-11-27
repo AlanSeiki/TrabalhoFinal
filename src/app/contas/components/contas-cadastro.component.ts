@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ContasInterface } from '../tipos/contas-interface';
 import { ContasService } from '../service/contas.service';
+import { LucroDespesaInterface } from '../../movimentacao/tipos/lucro_despesa.interface';
+import { setMonth } from 'date-fns';
+import { LucroDespesaService } from 'src/app/movimentacao/services/lucro-despesa.service';
 
 @Component({
   selector: 'app-contas-cadastro',
@@ -15,6 +18,7 @@ export class ContasCadastroComponent implements OnInit {
   dadoForm: FormGroup;
   tipo: string;
   icone:string = 'home';
+  movimentacao: LucroDespesaInterface;
 
   iconRows = [
     ['home', 'game-controller-outline', 'airplane-outline'],
@@ -26,11 +30,23 @@ export class ContasCadastroComponent implements OnInit {
     private toastController: ToastController,
     private activatedRoute: ActivatedRoute,
     private contasService: ContasService,
+    private lucroDespesaService: LucroDespesaService,
     private router: Router
   ) {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
     this.dadoId = null;
     this.dadoForm = this.initForm();
+    this.movimentacao = {
+      id: null,
+      descricao:"",
+      data:new Date,
+      banco:null,
+      conta:null,
+      valor:0,
+      icone:"",
+      meta:null,
+      tipo:"D"
+    }
   }
 
   ngOnInit() {
@@ -54,10 +70,33 @@ export class ContasCadastroComponent implements OnInit {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
       descricao: new FormControl(dado?.descricao || '', Validators.required),
-      valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      parcelas: new FormControl(dado?.parcelas || null, [Validators.required, Validators.min(0)]),
+      valor: new FormControl(dado?.valor, [Validators.required, Validators.min(0)]),
+      parcelas: new FormControl(dado?.parcelas, [Validators.required, Validators.min(0)]),
+      data: new FormControl(dado?.data || new Date().toISOString(), [Validators.required, Validators.min(0)]),
       icone: new FormControl(dado?.icone || this.icone),
     });
+  }
+
+  excluirGeral(dado: ContasInterface){
+    this.lucroDespesaService.excluirGeral(dado.id == null ? 0 : dado.id);
+  }
+
+  adicionaListaGeral(dado: ContasInterface){
+      this.movimentacao.descricao = dado.descricao;
+      this.movimentacao.valor = parseFloat((dado.valor / dado.parcelas).toFixed(2));
+      this.movimentacao.icone = dado.icone;
+      this.movimentacao.conta = dado.id;
+      var data = new Date(dado.data);
+      for (let index = 0; index < dado.parcelas; index++) {
+        if (index === 0) {
+          this.movimentacao.data = dado.data;
+        }else{
+          this.movimentacao.data = new Date(data.setMonth(data.getMonth() + 1));
+        }
+        this.lucroDespesaService.salvar(this.movimentacao,"D").subscribe(
+          
+        );
+      }
   }
 
   onSubmit() {
@@ -65,6 +104,11 @@ export class ContasCadastroComponent implements OnInit {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
+    if (this.dadoId) {
+      this.excluirGeral(dado);
+    }
+    
+    this.adicionaListaGeral(dado);
 
     this.contasService.salvar(dado).subscribe(
       () => this.router.navigate(['contas']),

@@ -110,6 +110,24 @@ export class LucroDespesaService {
     return this.httpClient.delete(`${this.url}/${id}`);
   }
 
+  excluirGeral(conta: number){
+    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
+     dadosLocais.pipe(
+       map(dados => {
+         const dadosLucro = dados.filter(item => item.conta == conta);
+         console.log(dadosLucro);
+     
+        //  dadosLucro.forEach(item => {
+        //    console.log(item.id);
+        //    this.excluir(item.id == null ? 0 : item.id);
+
+        //  })
+        console.log(dados);
+       })
+     );
+    console.log(dadosLocais);
+  }
+
   getDado( id: number): Observable<LucroDespesaInterface> {
     return this.httpClient.get<LucroDespesaInterface>(`${this.url}/${id}`);
   }
