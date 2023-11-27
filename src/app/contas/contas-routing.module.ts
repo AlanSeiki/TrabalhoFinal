@@ -12,7 +12,11 @@ const routes: Routes = [
   {
     path: 'cadastro',
     component: ContasCadastroComponent
-  }
+  },
+  {
+    path: 'editar/:id',
+    component: ContasCadastroComponent
+  },
 ];
 
 @NgModule({

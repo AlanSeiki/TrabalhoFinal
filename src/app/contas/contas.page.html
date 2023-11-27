@@ -8,11 +8,28 @@
 </ion-header>
 
 <ion-content>
-  <ion-fab-button [routerLink]="['cadastro']">
-    <ion-icon name="add-circle"></ion-icon>
-  </ion-fab-button>
-  <ion-row>
-    <ion-col>
-    </ion-col>
-  </ion-row>
+  <ion-fab vertical="bottom" horizontal="start">
+    <ion-fab-button color="tertiary" [routerLink]="['cadastro']">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-list  style="margin-top: 10px!important;max-height: 500px;overflow-y: auto;">
+    <ion-item *ngFor="let dado of dados">
+      <div style="margin-right: 10px;">
+        <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
+      </div>
+      <div style="width: 90%; ">
+        <ion-label>Descrição: {{dado.descricao}}</ion-label>
+        <ion-label>Valor: R${{dado.valor}}</ion-label>
+        <ion-label>Parcelas: {{dado.parcelas}}</ion-label>
+      </div>
+      <div>
+        <ion-buttons style="width: 20%;">
+          <ion-button color="primary" [routerLink]="['editar', dado.id]">
+            <ion-icon name="create" slot="icon-only"></ion-icon> 
+          </ion-button>
+        </ion-buttons>
+      </div>
+    </ion-item>
+  </ion-list>
 </ion-content>

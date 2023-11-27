@@ -18,8 +18,8 @@ export class ContasCadastroComponent implements OnInit {
 
   iconRows = [
     ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'logo-rss', 'logo-steam'],
-    ['wallet-outline', 'logo-apple', 'logo-xbox']
+    ['pizza-outline', 'people-circle-outline', 'car-sport-outline'],
+    ['wallet-outline', 'logo-apple', 'desktop-outline']
   ];
 
   constructor(
@@ -37,8 +37,8 @@ export class ContasCadastroComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     
     if (id) {
-      this.dadoId = parseInt(id);
-      this.contasService.getDado(this.dadoId).subscribe((dado) => {
+        this.dadoId = parseInt(id);
+        this.contasService.getDado(this.dadoId).subscribe((dado) => {
         this.dadoForm = this.initForm(dado);
         this.icone = dado.icone;
       });
@@ -54,15 +54,13 @@ export class ContasCadastroComponent implements OnInit {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
       descricao: new FormControl(dado?.descricao || '', Validators.required),
-      data: new FormControl(new Date),
-      banco: new FormControl(null),
-      conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      icone: new FormControl(this.icone),
+      parcelas: new FormControl(dado?.parcelas || null, [Validators.required, Validators.min(0)]),
+      icone: new FormControl(dado?.icone || this.icone),
     });
   }
 
-  onSubmit(tipo: string) {
+  onSubmit() {
     const dado: ContasInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
@@ -74,7 +72,7 @@ export class ContasCadastroComponent implements OnInit {
         console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível salvar a conta ${dado.descricao}`,
+            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

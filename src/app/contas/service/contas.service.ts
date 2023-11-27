@@ -8,7 +8,7 @@ import { ContasInterface } from '../tipos/contas-interface';
 })
 export class ContasService {
 
-  private url = 'http://localhost:3000/contas';
+  private url = 'http://localhost:3000/contas'
 
   constructor(
     private httpClient: HttpClient
