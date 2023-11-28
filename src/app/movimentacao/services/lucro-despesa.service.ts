@@ -58,19 +58,14 @@ export class LucroDespesaService {
       map(dadosLocais => {
         const dataAtual = new Date();
 
-        // Filtra apenas os elementos com tipo igual a 'L' e data até a data atual
         const dadosLucro = dadosLocais.filter(item => item.tipo === 'L' && new Date(item.data) <= dataAtual);
   
-        // Filtra apenas os elementos com tipo igual a 'D' e data até a data atual
         const dadosDespesa = dadosLocais.filter(item => item.tipo === 'D' && new Date(item.data) <= dataAtual);
   
-        // Calcula a soma dos valores de lucro
         const saldoLucro = dadosLucro.reduce((soma, valor) => soma + valor.valor, 0);
   
-        // Calcula a soma dos valores de despesa
         const saldoDespesa = dadosDespesa.reduce((soma, valor) => soma + valor.valor, 0);
   
-        // Calcula o saldo como a diferença entre lucro e despesa
         const saldo = saldoLucro - saldoDespesa;
   
         return saldo;

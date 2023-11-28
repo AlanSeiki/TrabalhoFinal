@@ -21,7 +21,7 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
   icone?: string;  
   private grafico?: Chart;
   dados: any = [];
-  porcentagemConcluida:number = 25;
+  porcentagemConcluida:number = 0;
   valorTotalN:number = 0;
 
   constructor(
