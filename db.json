@@ -5,7 +5,7 @@
       "descricao": "Teste",
       "data": "2023-11-26",
       "conta": 2,
-      "valor": 150,
+      "valor": 100,
       "icone": "people-circle-outline",
       "meta": null,
       "tipo": "D"
@@ -15,6 +15,56 @@
       "descricao": "Teste",
       "data": "2023-12-26T00:00:00.000Z",
       "conta": 2,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
+    },
+    {
+      "id": 3,
+      "descricao": "Cadeira",
+      "data": "2023-11-28",
+      "conta": null,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
+    },
+    {
+      "id": 4,
+      "descricao": "Cadeira",
+      "data": "2023-12-28T00:00:00.000Z",
+      "conta": null,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
+    },
+    {
+      "id": 5,
+      "descricao": "Cadeira",
+      "data": "2024-01-28T00:00:00.000Z",
+      "conta": null,
+      "valor": 100,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
+    },
+    {
+      "id": 6,
+      "descricao": "Cadeira",
+      "data": "2023-11-28",
+      "conta": 3,
+      "valor": 150,
+      "icone": "people-circle-outline",
+      "meta": null,
+      "tipo": "D"
+    },
+    {
+      "id": 7,
+      "descricao": "Cadeira",
+      "data": "2023-12-28T00:00:00.000Z",
+      "conta": 3,
       "valor": 150,
       "icone": "people-circle-outline",
       "meta": null,
@@ -55,9 +105,17 @@
     {
       "id": 2,
       "descricao": "Teste",
-      "valor": 300,
+      "valor": 200,
       "parcelas": 2,
       "data": "2023-11-26",
+      "icone": "people-circle-outline"
+    },
+    {
+      "id": 3,
+      "descricao": "Cadeira",
+      "valor": 300,
+      "parcelas": 2,
+      "data": "2023-11-28",
       "icone": "people-circle-outline"
     }
   ]

@@ -14,12 +14,15 @@ import { Observable } from 'rxjs';
   templateUrl: './contas-cadastro.component.html',
   styleUrls: ['./contas-cadastro.component.scss'],
 })
+
+
 export class ContasCadastroComponent implements OnInit {
   dadoId: number | null;
   dadoForm: FormGroup;
   tipo: string;
   icone:string = 'home';
   movimentacao: LucroDespesaInterface;
+
 
   iconRows = [
     ['home', 'game-controller-outline', 'airplane-outline'],

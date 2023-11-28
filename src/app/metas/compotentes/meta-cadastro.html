@@ -21,7 +21,7 @@
   
         <ion-item>
           <ion-label position="floating">Valor:</ion-label>
-          <ion-input type="number" formControlName="valor"></ion-input>
+          <ion-input type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
         </ion-item>
 
         <ion-item>
