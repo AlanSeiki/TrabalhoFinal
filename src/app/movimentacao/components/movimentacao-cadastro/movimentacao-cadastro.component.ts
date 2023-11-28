@@ -55,7 +55,6 @@ export class LucroDespesaCadastroComponent implements OnInit {
       id: new FormControl(dado?.id || null),
       descricao: new FormControl(dado?.descricao || '', Validators.required),
       data: new FormControl(dado?.data || new Date().toISOString()),
-      banco: new FormControl(null),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
       icone: new FormControl(this.icone),

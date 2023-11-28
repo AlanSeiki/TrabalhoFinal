@@ -4,9 +4,8 @@
       "id": 1,
       "descricao": "Teste",
       "data": "2023-11-26",
-      "banco": null,
       "conta": 2,
-      "valor": 100,
+      "valor": 150,
       "icone": "people-circle-outline",
       "meta": null,
       "tipo": "D"
@@ -15,53 +14,8 @@
       "id": 2,
       "descricao": "Teste",
       "data": "2023-12-26T00:00:00.000Z",
-      "banco": null,
       "conta": 2,
-      "valor": 100,
-      "icone": "people-circle-outline",
-      "meta": null,
-      "tipo": "D"
-    },
-    {
-      "id": 3,
-      "descricao": "Teste",
-      "data": "2023-11-26",
-      "banco": null,
-      "conta": 2,
-      "valor": 100,
-      "icone": "people-circle-outline",
-      "meta": null,
-      "tipo": "D"
-    },
-    {
-      "id": 4,
-      "descricao": "Teste",
-      "data": "2023-12-26T00:00:00.000Z",
-      "banco": null,
-      "conta": 2,
-      "valor": 100,
-      "icone": "people-circle-outline",
-      "meta": null,
-      "tipo": "D"
-    },
-    {
-      "id": 5,
-      "descricao": "Teste",
-      "data": "2023-11-26",
-      "banco": null,
-      "conta": 2,
-      "valor": 100,
-      "icone": "people-circle-outline",
-      "meta": null,
-      "tipo": "D"
-    },
-    {
-      "id": 6,
-      "descricao": "Teste",
-      "data": "2023-12-26T00:00:00.000Z",
-      "banco": null,
-      "conta": 2,
-      "valor": 100,
+      "valor": 150,
       "icone": "people-circle-outline",
       "meta": null,
       "tipo": "D"
@@ -101,7 +55,7 @@
     {
       "id": 2,
       "descricao": "Teste",
-      "valor": 200,
+      "valor": 300,
       "parcelas": 2,
       "data": "2023-11-26",
       "icone": "people-circle-outline"

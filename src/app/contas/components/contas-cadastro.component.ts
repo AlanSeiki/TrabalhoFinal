@@ -7,6 +7,7 @@ import { ContasService } from '../service/contas.service';
 import { LucroDespesaInterface } from '../../movimentacao/tipos/lucro_despesa.interface';
 import { setMonth } from 'date-fns';
 import { LucroDespesaService } from 'src/app/movimentacao/services/lucro-despesa.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-contas-cadastro',
@@ -40,7 +41,6 @@ export class ContasCadastroComponent implements OnInit {
       id: null,
       descricao:"",
       data:new Date,
-      banco:null,
       conta:null,
       valor:0,
       icone:"",
@@ -77,8 +77,11 @@ export class ContasCadastroComponent implements OnInit {
     });
   }
 
-  excluirGeral(dado: ContasInterface){
-    this.lucroDespesaService.excluirGeral(dado.id == null ? 0 : dado.id);
+   excluirGeral(dado: ContasInterface){
+    console.log('a')
+    const resultado = this.lucroDespesaService.getDados('','','D',dado.id == null ? 0 : dado.id);
+    resultado.forEach(item => item.map(dado => this.lucroDespesaService.excluir(dado.id == null ? 0 : dado.id).subscribe()));
+    console.log('a')
   }
 
   adicionaListaGeral(dado: ContasInterface){
@@ -99,31 +102,37 @@ export class ContasCadastroComponent implements OnInit {
       }
   }
 
-  onSubmit() {
+   onSubmit() {
     const dado: ContasInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
-    if (this.dadoId) {
-      this.excluirGeral(dado);
-    }
-    
-    this.adicionaListaGeral(dado);
 
-    this.contasService.salvar(dado).subscribe(
-      () => this.router.navigate(['contas']),
-      (erro) => {
-        console.error(erro);
-        this.toastController
-          .create({
-            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
-            duration: 5000,
-            keyboardClose: true,
-            color: 'danger',
-          })
-          .then((t) => t.present());
-      }
-    );
+    if (this.dadoId) {
+       this.excluirGeral(dado);
+    }
+      setTimeout(() => {
+        this.adicionaListaGeral(dado);
+      }, 3000);
+      
+    
+      setTimeout(() => {
+        this.contasService.salvar(dado).subscribe(
+          () => this.router.navigate(['contas']),
+          (erro) => {
+            console.error(erro);
+            this.toastController
+              .create({
+                message: `Não foi possível salvar a movimentação ${dado.descricao}`,
+                duration: 5000,
+                keyboardClose: true,
+                color: 'danger',
+              })
+              .then((t) => t.present());
+          }
+        );
+      }, 3000);
+    
   }
 
   get descricao() {

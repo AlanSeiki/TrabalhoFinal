@@ -53,7 +53,7 @@ export class MovimentacaoListaComponent
   }
 
   listar() {
-    const observable = this.lucroDespesaService.getDados(this.dataFinal,this.dataInicial,this.tipo);
+    const observable = this.lucroDespesaService.getDados(this.dataFinal,this.dataInicial,this.tipo,null);
     observable.subscribe(
       (dados) => {
         this.dados = dados;
@@ -98,7 +98,7 @@ export class MovimentacaoListaComponent
           console.error(erro);
           this.toastController
             .create({
-              message: `Não foi possível excluir o autor ${dado.descricao}`,
+              message: `Não foi possível excluir a movimentação ${dado.descricao}`,
               duration: 5000,
               keyboardClose: true,
               color: 'danger',

@@ -15,7 +15,7 @@ export class LucroDespesaService {
     private httpClient: HttpClient
   ) {}
 
-  getDados(dataFinal:string,dataInicial:string,tipo:string): Observable<LucroDespesaInterface[]> {
+  getDados(dataFinal:string,dataInicial:string,tipo:string,conta:any): Observable<LucroDespesaInterface[]> {
     const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
   
     return dadosLocais.pipe(
@@ -23,19 +23,12 @@ export class LucroDespesaService {
         const dataAtual1 = new Date(dataInicial)
         const dataFinal1 = new Date(dataFinal)
         var dadosLucro;
-        if(tipo != '' && dataInicial != '' && dataFinal != ''){
-           dadosLucro = dadosLocais.filter(item => item.tipo === tipo && new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
-        }else if(dataInicial != '' && dataFinal != '' && tipo == ''){
-           dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1 && new Date(item.data) <= dataFinal1);
-        }else if(dataInicial == '' && dataFinal != '' && tipo == ''){
-          dadosLucro = dadosLocais.filter(item => new Date(item.data) <= dataFinal1);
-       }else if(dataInicial != '' && dataFinal == '' && tipo == ''){
-          dadosLucro = dadosLocais.filter(item => new Date(item.data) >= dataAtual1);
-       }else if(dataInicial == '' && dataFinal == '' && tipo != ''){
-          dadosLucro = dadosLocais.filter(item => item.tipo === tipo);
-       }else{
-           dadosLucro = dadosLocais;
-        }
+        dadosLucro = dadosLocais.filter(item =>
+          (tipo === '' || item.tipo === tipo) &&
+          (dataInicial === '' || new Date(item.data) >= dataAtual1) &&
+          (dataFinal === '' || new Date(item.data) <= dataFinal1) &&
+          (conta == null || item.conta == conta)
+        )
         
 
         return dadosLucro;
@@ -106,26 +99,9 @@ export class LucroDespesaService {
       })
     );
   }
+
   excluir( id: number): Observable<Object> {
     return this.httpClient.delete(`${this.url}/${id}`);
-  }
-
-  excluirGeral(conta: number){
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
-     dadosLocais.pipe(
-       map(dados => {
-         const dadosLucro = dados.filter(item => item.conta == conta);
-         console.log(dadosLucro);
-     
-        //  dadosLucro.forEach(item => {
-        //    console.log(item.id);
-        //    this.excluir(item.id == null ? 0 : item.id);
-
-        //  })
-        console.log(dados);
-       })
-     );
-    console.log(dadosLocais);
   }
 
   getDado( id: number): Observable<LucroDespesaInterface> {
