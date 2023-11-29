@@ -65,7 +65,7 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
         console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível listar os autores`,
+            message: `Não foi possível listar os contas`,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

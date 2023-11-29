@@ -62,7 +62,7 @@ export class MovimentacaoListaComponent
         console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível listar os autores`,
+            message: `Não foi possível listar as movimentações`,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

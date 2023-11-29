@@ -7,7 +7,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <ion-list  style="margin-top: 10px!important;max-height: 500px;overflow-y: auto;">
+    <ion-list  [inset]="true" style="border-radius: 10px; margin-top: 10px!important;max-height: 500px;overflow-y: auto;">
       <ion-item *ngFor="let dado of dados">
         <div style="margin-right: 5px;">
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>

@@ -1,9 +1,11 @@
 <ion-header>
     <ion-toolbar color="primary">
       <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
+        <ion-back-button 
+        text='' defaultHref="/contas"></ion-back-button>
       </ion-buttons>
       <ion-title>Contas</ion-title>
+      
     </ion-toolbar>
   </ion-header>
 
@@ -43,13 +45,14 @@
                                       [class.selected]="icone == iconName">
                     <ion-icon [name]="iconName"></ion-icon>
                   </ion-segment-button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-segment>
         </ion-item>
   
-        <ion-button expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
+        <ion-button id="btnSalvar" expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
       </form>
     </ion-row>
   </ion-content>

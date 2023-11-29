@@ -52,7 +52,7 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
       valorTotal.subscribe(
         (dados)=>{
           this.valorTotalN = dados;
-          this.porcentagemConcluida = valor/dados;
+          this.porcentagemConcluida = (dados*100)/valor;
         }
       )
       const observable = this.metasService.getMovimetnacao(parseInt(id));

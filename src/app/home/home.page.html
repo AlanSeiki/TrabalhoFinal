@@ -11,14 +11,14 @@
 
   <ion-row>
     <ion-col>
-      <ion-card>
+      <ion-card style="border-radius: 10px;">
         <ion-card-header style="padding-bottom: 0px;">
           <ion-row>
             <div style="width: 10%;">
               <ion-icon name="{{icone}}" size="large" color="{{color}}"></ion-icon>
             </div>
             <div style="text-align: center; width: 90%;">
-              <ion-card-title color="{{color}}">Saldo: R$ {{saldo}}</ion-card-title>
+              <ion-card-title color="{{color}}">Saldo: {{ saldo | currency:'BRL':'symbol':'1.2-2' }}</ion-card-title>
             </div>
           </ion-row>
         </ion-card-header>
@@ -26,14 +26,14 @@
           <ion-row>
           <ion-text color="success" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
             <ion-col>
-              <h3 style="margin: 0px;">R$ {{lucro}}</h3>
+              <h3 style="margin: 0px;">{{lucro | currency:'BRL':'symbol':'1.2-2' }}</h3>
               <h5 style="margin: 0px;">Lucros</h5>
             </ion-col>
           </ion-text>
           <ion-text color="danger" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
             <ion-col>
-              <h3 style="margin: 0px;">R$ {{despesa}}</h3>
-              <h5 style="margin: 0px;">Despesas</h5>
+              <h3 style="margin: 0px;">{{despesa | currency:'BRL':'symbol':'1.2-2' }}</h3>
+              <h5 style="margin: 0px; color:">Despesas</h5>
             </ion-col>
           </ion-text>
         </ion-row>
@@ -42,7 +42,7 @@
     </ion-col>
   </ion-row>
   <div style="display: flex;justify-content: space-around;">
-    <ion-list style="margin-top: 10px!important;width: 80%;">
+    <ion-list style="margin-top: 10px!important;width: 80%;border-radius: 10px;">
       <ion-item *ngFor="let dado of dados">
         <div style="margin-right: 5px;">
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
