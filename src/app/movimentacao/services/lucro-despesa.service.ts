@@ -15,7 +15,7 @@ export class LucroDespesaService {
     private httpClient: HttpClient
   ) {}
 
-  getDados(dataFinal:string,dataInicial:string,tipo:string,conta:any): Observable<LucroDespesaInterface[]> {
+  getDados(dataFinal:string,dataInicial:string,tipo:string,conta:any,meta:any): Observable<LucroDespesaInterface[]> {
     const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
   
     return dadosLocais.pipe(
@@ -27,7 +27,8 @@ export class LucroDespesaService {
           (tipo === '' || item.tipo === tipo) &&
           (dataInicial === '' || new Date(item.data) >= dataAtual1) &&
           (dataFinal === '' || new Date(item.data) <= dataFinal1) &&
-          (conta == null || item.conta == conta)
+          (conta == null || item.conta == conta) &&
+          (meta == null || item.meta == meta)
         )
         
 

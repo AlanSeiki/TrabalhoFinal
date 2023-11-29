@@ -21,7 +21,7 @@
         <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: R${{dado.valor}}</ion-label>
       </div>
       <div>
-        <ion-buttons>
+        <ion-buttons *ngIf="dado.conta == null">
           <ion-button color="primary" [routerLink]="['edicao', dado.id,dado.tipo]">
             <ion-icon name="create" slot="icon-only"></ion-icon> 
           </ion-button>
@@ -84,6 +84,18 @@
               <ion-select-option value="L">Lucro</ion-select-option>
               <ion-select-option value="D">Despesa</ion-select-option>
               <ion-select-option value="M">Metas</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select [(ngModel)]="conta" label="Conta:">
+              <ion-select-option value="T">Todos</ion-select-option>
+              <ion-select-option *ngFor="let dado of contas" value="{{dado.id}}">{{dado.descricao}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-select [(ngModel)]="meta" label="Metas:">
+              <ion-select-option value="T">Todos</ion-select-option>
+              <ion-select-option *ngFor="let dado of metas" value="{{dado.id}}">{{dado.descricao}}</ion-select-option>
             </ion-select>
           </ion-item>
         </ion-list>

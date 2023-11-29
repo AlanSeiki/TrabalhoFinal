@@ -85,7 +85,7 @@ export class ContasCadastroComponent implements OnInit {
 //grante que cada um rode no seu tempo promisse.all verifica se foram todas deletas e retorna para função submit
   excluirGeral(dado: ContasInterface) {
     return new Promise((resolve, reject) => {
-      this.lucroDespesaService.getDados('','','D',dado.id).subscribe(
+      this.lucroDespesaService.getDados('','','D',dado.id,null).subscribe(
         (dados) => {
           const excluirPromises = dados.map((item, index) => {
             return new Promise<void>((resolveInner) => {
