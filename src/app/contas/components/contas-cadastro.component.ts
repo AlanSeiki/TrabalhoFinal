@@ -5,9 +5,8 @@ import { ToastController } from '@ionic/angular';
 import { ContasInterface } from '../tipos/contas-interface';
 import { ContasService } from '../service/contas.service';
 import { LucroDespesaInterface } from '../../movimentacao/tipos/lucro_despesa.interface';
-import { setMonth } from 'date-fns';
 import { LucroDespesaService } from 'src/app/movimentacao/services/lucro-despesa.service';
-import { Observable } from 'rxjs';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-contas-cadastro',
@@ -35,7 +34,8 @@ export class ContasCadastroComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private contasService: ContasService,
     private lucroDespesaService: LucroDespesaService,
-    private router: Router
+    private router: Router,
+    private loadingController: LoadingController
   ) {
     this.tipo = this.activatedRoute.snapshot.paramMap.get('tipo') || 'Valor Padrão';
     this.dadoId = null;
@@ -80,46 +80,93 @@ export class ContasCadastroComponent implements OnInit {
     });
   }
 
-   excluirGeral(dado: ContasInterface){
-    console.log('a')
-    const resultado = this.lucroDespesaService.getDados('','','D',dado.id == null ? 0 : dado.id);
-    resultado.forEach(item => item.map(dado => this.lucroDespesaService.excluir(dado.id == null ? 0 : dado.id).subscribe()));
-    console.log('a')
-  }
-
-  adicionaListaGeral(dado: ContasInterface){
-      this.movimentacao.descricao = dado.descricao;
-      this.movimentacao.valor = parseFloat((dado.valor / dado.parcelas).toFixed(2));
-      this.movimentacao.icone = dado.icone;
-      this.movimentacao.conta = dado.id;
-      var data = new Date(dado.data);
-      for (let index = 0; index < dado.parcelas; index++) {
-        if (index === 0) {
-          this.movimentacao.data = dado.data;
-        }else{
-          this.movimentacao.data = new Date(data.setMonth(data.getMonth() + 1));
+ 
+//Basicamente eu faço ele aguardar o processo de deleção um a um para não dar erro no json server promise espera o retorno e timeout 
+//grante que cada um rode no seu tempo promisse.all verifica se foram todas deletas e retorna para função submit
+  excluirGeral(dado: ContasInterface) {
+    return new Promise((resolve, reject) => {
+      this.lucroDespesaService.getDados('','','D',dado.id).subscribe(
+        (dados) => {
+          const excluirPromises = dados.map((item, index) => {
+            return new Promise<void>((resolveInner) => {
+              setTimeout(() => {
+              this.lucroDespesaService.excluir(item.id == null ? 0 : item.id).subscribe(
+                () => {
+                    resolveInner();
+                },
+                (erroExclusao) => reject(erroExclusao)
+              );
+            }, index * 1000); 
+            });
+          });
+          Promise.all(excluirPromises)
+            .then(() => {
+              console.log("Todas as exclusões concluídas");
+              resolve(true);
+            })
+            .catch((erro) => {
+              console.error(erro);
+              reject(erro);
+            });
+        },
+        (erro) => {
+          console.error(erro);
+          reject(erro);
         }
-        this.lucroDespesaService.salvar(this.movimentacao,"D").subscribe(
-          
-        );
-      }
+      );
+    });
   }
+  
 
-   onSubmit() {
+  async adicionaListaGeral(dado: ContasInterface) {
+    this.movimentacao.descricao = dado.descricao;
+    this.movimentacao.valor = parseFloat((dado.valor / dado.parcelas).toFixed(2));
+    this.movimentacao.icone = dado.icone;
+    this.movimentacao.conta = dado.id;
+    var data = new Date(dado.data);
+  
+    for (let index = 0; index < dado.parcelas; index++) {
+      if (index === 0) {
+        this.movimentacao.data = dado.data;
+      } else {
+        this.movimentacao.data = new Date(data.setMonth(data.getMonth() + 1));
+      }
+  
+      await new Promise<void>((resolve) => {
+        setTimeout(() => {
+          this.lucroDespesaService.salvar(this.movimentacao, "D").subscribe(
+            () => {
+              resolve();
+            },
+            (erro) => {
+              console.error("Erro ao salvar movimentação:", erro);
+            }
+          );
+        }, 500); // Atraso de 1000 ms multiplicado pelo índice
+      });
+    }
+  }
+  
+
+   async onSubmit() {
     const dado: ContasInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
-
-    if (this.dadoId) {
-       this.excluirGeral(dado);
-    }
-      setTimeout(() => {
-        this.adicionaListaGeral(dado);
-      }, 3000);
-      
+   
+    const loading = await this.loadingController.create({
+      spinner: 'bubbles',
+      message: 'Salvando',
+      duration: 0,
+    });
+    await loading.present();
     
-      setTimeout(() => {
+    if (this.dadoId) {
+       await this.excluirGeral(dado);
+    }
+ 
+     await this.adicionaListaGeral(dado);
+     console.log("inciar terminar")
         this.contasService.salvar(dado).subscribe(
           () => this.router.navigate(['contas']),
           (erro) => {
@@ -134,8 +181,7 @@ export class ContasCadastroComponent implements OnInit {
               .then((t) => t.present());
           }
         );
-      }, 3000);
-    
+        loading.dismiss();
   }
 
   get descricao() {
