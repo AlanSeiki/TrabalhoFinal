@@ -33,7 +33,7 @@
           <ion-text color="danger" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
             <ion-col>
               <h3 style="margin: 0px;">{{despesa | currency:'BRL':'symbol':'1.2-2' }}</h3>
-              <h5 style="margin: 0px; color:">Despesas</h5>
+              <h5 style="margin: 0px;">Despesas</h5>
             </ion-col>
           </ion-text>
         </ion-row>
@@ -49,9 +49,9 @@
         </div>
         <div style="width: 70%;">
           <ion-label>Descrição: {{dado.descricao}}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: R${{dado.valor}}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: R${{dado.valor}}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: R${{dado.valor}}</ion-label>
+          <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+          <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+          <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
         </div>
       </ion-item>
     </ion-list>

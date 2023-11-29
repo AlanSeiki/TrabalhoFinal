@@ -469,6 +469,16 @@
       "icone": "home",
       "meta": "5",
       "tipo": "M"
+    },
+    {
+      "id": 64,
+      "descricao": "13°",
+      "data": "2023-11-29T22:47:41.508Z",
+      "conta": null,
+      "valor": 3887,
+      "icone": "wallet-outline",
+      "meta": null,
+      "tipo": "L"
     }
   ],
   "metas": [

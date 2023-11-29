@@ -16,9 +16,9 @@
       </div>
       <div style="width: 70%;">
         <ion-label>Descrição: {{dado.descricao}}</ion-label>
-        <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: R${{dado.valor}}</ion-label>
-        <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: R${{dado.valor}}</ion-label>
-        <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: R${{dado.valor}}</ion-label>
+        <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor  | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+        <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+        <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
       </div>
       <div>
         <ion-buttons *ngIf="dado.conta == null">

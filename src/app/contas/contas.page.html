@@ -20,7 +20,7 @@
       </div>
       <div style="width: 90%; ">
         <ion-label>Descrição: {{dado.descricao}}</ion-label>
-        <ion-label>Valor: R${{dado.valor}}</ion-label>
+        <ion-label>Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2'}}</ion-label>
         <ion-label>Parcelas: {{dado.parcelas}}</ion-label>
       </div>
       <div>
