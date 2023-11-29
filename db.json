@@ -399,39 +399,79 @@
       "icone": "home",
       "meta": null,
       "tipo": "D"
+    },
+    {
+      "id": 57,
+      "descricao": "Meta",
+      "data": "2023-11-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 352.25,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 58,
+      "descricao": "Meta",
+      "data": "2023-01-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 5000,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 59,
+      "descricao": "Meta",
+      "data": "2023-02-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 411,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 60,
+      "descricao": "Meta",
+      "data": "2023-03-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 300,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 61,
+      "descricao": "Meta",
+      "data": "2023-04-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 998,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 62,
+      "descricao": "Meta",
+      "data": "2023-05-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 500,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
+    },
+    {
+      "id": 63,
+      "descricao": "Meta",
+      "data": "2023-06-29T22:39:14.748Z",
+      "conta": null,
+      "valor": 2500,
+      "icone": "home",
+      "meta": "5",
+      "tipo": "M"
     }
   ],
   "metas": [
-    {
-      "id": 1,
-      "descricao": "Conta de Luz",
-      "data_inicial": "2023-01-01",
-      "data_final": "2023-12-31",
-      "valor": 134.36,
-      "valor_mes": 11.07,
-      "icone": "home",
-      "ativo": true
-    },
-    {
-      "id": 2,
-      "descricao": "Conta de Água",
-      "data_inicial": "2023-01-01",
-      "data_final": "2023-12-31",
-      "valor": 88.56,
-      "valor_mes": 7.3,
-      "icone": "home",
-      "ativo": true
-    },
-    {
-      "id": 3,
-      "descricao": "Internet",
-      "data_inicial": "2023-01-01",
-      "data_final": "2023-12-31",
-      "valor": 120,
-      "valor_mes": 9.89,
-      "icone": "home",
-      "ativo": true
-    },
     {
       "id": 4,
       "descricao": "Faculdade",
@@ -440,6 +480,16 @@
       "valor": 12000,
       "valor_mes": 1180.33,
       "icone": "people-circle-outline",
+      "ativo": true
+    },
+    {
+      "id": 5,
+      "descricao": "Casa Nova",
+      "data_inicial": "2023-01-01",
+      "data_final": "2026-01-01",
+      "valor": 53000,
+      "valor_mes": 1450.73,
+      "icone": "home",
       "ativo": true
     }
   ],
