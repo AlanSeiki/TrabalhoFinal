@@ -9,3 +9,10 @@ export interface LucroDespesaInterface {
   meta: number | null;
   tipo: 'D' | 'L' | 'M';
 }
+
+export interface Paginate {
+  data: LucroDespesaInterface[] | null;
+  lastPage: number | null;
+  page: number | null;
+  total: number | null;
+}

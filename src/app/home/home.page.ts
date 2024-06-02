@@ -6,7 +6,7 @@ import {
   ViewWillEnter,
   ViewWillLeave,
 } from '@ionic/angular';
-import { LucroDespesaInterface } from '../movimentacao/tipos/lucro_despesa.interface';
+import { LucroDespesaInterface, Paginate } from '../movimentacao/tipos/lucro_despesa.interface';
 import { LucroDespesaService } from '../movimentacao/services/lucro-despesa.service';
 
 @Component({
@@ -15,7 +15,7 @@ import { LucroDespesaService } from '../movimentacao/services/lucro-despesa.serv
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
-  dados: LucroDespesaInterface[] = [];
+  dados: LucroDespesaInterface[] | null = [];
   lucro: number | null;
   despesa: number | null;
   saldo: number | null;
@@ -115,8 +115,9 @@ export class HomePage implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLe
   listar() {
     const observable = this.lucroDespesaService.getDadosSimplificado();
     observable.subscribe(
-      (dados) => {
-        this.dados = dados;
+      (dados: Paginate) => {
+        console.log(dados)
+        this.dados = dados.data;
       },
       (erro) => {
         console.error(erro);

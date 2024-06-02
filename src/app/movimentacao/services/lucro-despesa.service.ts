@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LucroDespesaInterface } from '../tipos/lucro_despesa.interface';
+import { LucroDespesaInterface, Paginate } from '../tipos/lucro_despesa.interface';
 
 import { map } from 'rxjs/operators';
 @Injectable({
@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class LucroDespesaService {
 
-  private url = 'http://localhost:3000/listaGeral';
+  private url = 'http://localhost:3000/movimentacao';
 
   constructor(
     private httpClient: HttpClient
@@ -37,21 +37,9 @@ export class LucroDespesaService {
     );
   }
 
-  getDadosSimplificado(): Observable<LucroDespesaInterface[]> {
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
-  
-    return dadosLocais.pipe(
-      map(dadosLocais => {
-        // Ordena os dados pela data em ordem decrescente
-        const dadosOrdenados = dadosLocais.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
-  
-        // Pega os primeiros 5 registros
-        const ultimos5Registros = dadosOrdenados.slice(0, 5);
-  
-        // Retorna os últimos 5 registros
-        return ultimos5Registros;
-      })
-    );
+  getDadosSimplificado(): Observable<Paginate> {
+    const dadosLocais = this.httpClient.get<Paginate>(this.url+'/paginate?page=1&limit=10')
+    return dadosLocais;
   }
   getSaldo(): Observable<number> {
     const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
@@ -104,14 +92,14 @@ export class LucroDespesaService {
     return this.httpClient.get<LucroDespesaInterface>(`${this.url}/${id}`);
   }
 
-  private adicionar( dado: LucroDespesaInterface, tipo:string)  {
+  private adicionar( dado: LucroDespesaInterface, tipo:string) {
     dado.tipo = tipo == 'D' ? "D" : tipo == 'L' ? "L" : "M";
-    return this.httpClient.post(this.url, dado);
+    return this.httpClient.post<{ message: string }>(this.url, dado);
   }
 
   private atualizar( dado: LucroDespesaInterface, tipo:string) {
     dado.tipo = tipo == 'D' ? "D" : "L";
-    return this.httpClient.put(`${this.url}/${dado.id}`, dado);
+    return this.httpClient.patch<{ message: string }>(`${this.url}/${dado.id}`, dado);
   }
 
   salvar( dado: LucroDespesaInterface, tipo:string ) {

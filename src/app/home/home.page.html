@@ -47,8 +47,8 @@
         <div style="margin-right: 5px;">
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
         </div>
-        <div style="width: 70%;">
-          <ion-label>Descrição: {{dado.descricao}}</ion-label>
+        <div>
+          <ion-label>{{dado.descricao}}</ion-label>
           <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
           <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
           <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>

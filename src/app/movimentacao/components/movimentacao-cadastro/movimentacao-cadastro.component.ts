@@ -70,11 +70,11 @@ export class LucroDespesaCadastroComponent implements OnInit {
 
     this.lucroDespesaService.salvar(dado, tipo).subscribe(
       () => this.router.navigate(['movimentacao']),
-      (erro) => {
-        console.error(erro);
+      (error) => {
+        console.log(error.message)
         this.toastController
           .create({
-            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
+            message: `Não foi possível salvar a movimentação ${error.message}`,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',
