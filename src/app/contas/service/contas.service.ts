@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContasInterface } from '../tipos/contas-interface';
+import { Paginate } from 'src/app/movimentacao/tipos/lucro_despesa.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,10 @@ export class ContasService {
   constructor(
     private httpClient: HttpClient
   ) {}
-
-  getDados(): Observable<ContasInterface[]>{
-    return this.httpClient.get<ContasInterface[]>(this.url)
+  
+  getDados(page = 1, limit = 10): Observable<Paginate> {
+    const dadosLocais = this.httpClient.get<Paginate>(this.url+`/paginate?page=${page}&limit=10`)
+    return dadosLocais;
   }
 
   getDado( id: number): Observable<ContasInterface> {
@@ -27,7 +29,7 @@ export class ContasService {
   }
 
   private atualizar( dado: ContasInterface) {
-    return this.httpClient.put(`${this.url}/${dado.id}`, dado);
+    return this.httpClient.patch(`${this.url}/${dado.id}`, dado);
   }
 
   salvar( dado: ContasInterface ) {

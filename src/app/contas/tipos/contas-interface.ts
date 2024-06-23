@@ -2,7 +2,7 @@ export interface ContasInterface {
     id?: number | null;
     descricao: string;
     valor: number;
-    parcelas: number;
+    parcela: number;
     data: Date;
     icone: string;
   }

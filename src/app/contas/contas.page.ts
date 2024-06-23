@@ -3,7 +3,7 @@ import { AlertController, ToastController, ViewDidLeave, ViewWillEnter, ViewWill
 import { ContasInterface } from './tipos/contas-interface';
 import { ContasService } from './service/contas.service';
 import { Router } from '@angular/router';
-
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 @Component({
   selector: 'app-contas',
   templateUrl: './contas.page.html',
@@ -11,8 +11,11 @@ import { Router } from '@angular/router';
 })
 
 export class ContasPage 
-implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
+implements OnInit, ViewWillEnter {
   dados: ContasInterface[] = [];
+  lastPage: number = 0;
+  page: number = 0;
+  items = [];
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
@@ -21,19 +24,8 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
   ) { }
 
   ionViewWillEnter() {
+    this.dados = [];
     this.listar();
-  }
-
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-  }
-
-  ionViewWillLeave() {
-    console.log('ionViewWillLeave');
-  }
-
-  ionViewDidLeave() {
-    console.log('ionViewDidLeave');
   }
 
   ngOnInit() {}
@@ -55,11 +47,13 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
     );
   }
   
-  listar() {
-    const observable = this.contasService.getDados();
+  listar(page = 1) {
+    const observable = this.contasService.getDados(page);
     observable.subscribe(
       (dados) => {
-        this.dados = dados;
+        this.page = dados.page ?? 0;
+        this.lastPage = dados.lastPage ?? 0;
+        this.dados = [...this.dados, ...dados.data];
       },
       (erro) => {
         console.error(erro);
@@ -75,4 +69,14 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
     );
   }
   
+  onIonInfinite(ev: InfiniteScrollCustomEvent) {
+    if (this.page < this.lastPage) {
+      setTimeout(() => {
+        this.listar(this.page + 1)
+        ev.target.complete();
+      }, 500);
+    } else {
+      ev.target.disabled = true;
+    }
+  }
 }

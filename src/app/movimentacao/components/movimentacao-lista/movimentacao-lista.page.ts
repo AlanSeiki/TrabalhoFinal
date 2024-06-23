@@ -112,7 +112,7 @@ export class MovimentacaoListaComponent
     const contas = this.contasService.getDados();
     contas.subscribe(
       (dados) => {
-        this.contas = dados;
+        // this.contas = dados;
       });
   }
 

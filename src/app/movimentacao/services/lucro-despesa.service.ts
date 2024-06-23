@@ -37,10 +37,11 @@ export class LucroDespesaService {
     );
   }
 
-  getDadosSimplificado(): Observable<Paginate> {
-    const dadosLocais = this.httpClient.get<Paginate>(this.url+'/paginate?page=1&limit=10')
+  getDadosSimplificado(page = 1, limit = 10): Observable<Paginate> {
+    const dadosLocais = this.httpClient.get<Paginate>(this.url+`/paginate?page=${page}&limit=10`)
     return dadosLocais;
   }
+  
   getSaldo(): Observable<number> {
     const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
     return dadosLocais.pipe(
@@ -61,27 +62,9 @@ export class LucroDespesaService {
       })
     );
   }
-  getLucro(): Observable<number> {
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
-    return dadosLocais.pipe(
-      map(dadosLocais => {
-        const dataAtual = new Date();
-        const dadosLucro = dadosLocais.filter(item => item.tipo === 'L' && new Date(item.data) <= dataAtual);
-        const dadosOrdenados = dadosLucro.reduce((soma,valor) => soma + valor.valor, 0);
-        return dadosOrdenados;
-      })
-    );
-  }
-  getDespesa(): Observable<number> {
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
-    return dadosLocais.pipe(
-      map(dadosLocais => {
-        const dataAtual = new Date();
-        const dadosLucro = dadosLocais.filter(item => item.tipo === 'D' && new Date(item.data) <= dataAtual);
-        const dadosOrdenados = dadosLucro.reduce((soma,valor) => soma + valor.valor, 0);
-        return dadosOrdenados;
-      })
-    );
+ async getLucro() {
+    const dadosLocais = await this.httpClient.get(this.url+'/lucro_despesa')
+    return dadosLocais
   }
 
   excluir( id: number): Observable<Object> {

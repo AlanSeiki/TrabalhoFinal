@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-row>
     <ion-col>
       <ion-card style="border-radius: 10px;">
@@ -41,19 +40,22 @@
       </ion-card>
     </ion-col>
   </ion-row>
-  <div style="display: flex;justify-content: space-around;">
-    <ion-list style="margin-top: 10px!important;width: 80%;border-radius: 10px;">
-      <ion-item *ngFor="let dado of dados">
-        <div style="margin-right: 5px;">
-          <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
-        </div>
-        <div>
-          <ion-label>{{dado.descricao}}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
-          <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
-        </div>
-      </ion-item>
-    </ion-list>
-  </div>  
+    <ion-content role="feed" style="max-height: 400px; overflow-y: scroll; margin-left: 10%;">
+      <ion-list style="width: 90%;">
+        <ion-item *ngFor="let dado of dados" role="article">
+          <div style="margin-right: 5px;">
+            <ion-icon [name]="dado.icone" size="large"></ion-icon>
+          </div>
+          <div>
+            <ion-label>{{dado.descricao}}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+          </div>
+        </ion-item>
+        </ion-list>
+          <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+    </ion-content>
 </ion-content>

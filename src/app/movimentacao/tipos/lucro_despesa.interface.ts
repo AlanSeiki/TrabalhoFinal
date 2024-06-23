@@ -11,8 +11,7 @@ export interface LucroDespesaInterface {
 }
 
 export interface Paginate {
-  data: LucroDespesaInterface[] | null;
-  lastPage: number | null;
-  page: number | null;
-  total: number | null;
+  page: number;
+  lastPage: number;
+  data: any;
 }
