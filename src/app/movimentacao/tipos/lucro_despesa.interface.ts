@@ -1,12 +1,12 @@
 
 export interface LucroDespesaInterface {
-  id?: number | null;
+  id?: any;
   descricao: string;
   data: Date;
-  conta?: number | null;
+  conta?: number | any;
   valor: number;
   icone: string;
-  meta: number | null;
+  meta: number | any;
   tipo: 'D' | 'L' | 'M';
 }
 

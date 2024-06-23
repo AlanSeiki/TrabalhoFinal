@@ -21,11 +21,11 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   tipo: string;
   icone: string = 'home';
   dados: MetasInterface[] = [];
-  
+  metaSelecionada: string = '';
   iconRows = [
-    ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'people-circle-outline', 'car-sport-outline'],
-    ['wallet-outline', 'logo-apple', 'desktop-outline']
+    'home', 'game-controller-outline', 'airplane-outline',
+    'pizza-outline', 'people-circle-outline', 'car-sport-outline',
+    'wallet-outline', 'logo-apple', 'desktop-outline',"boat-outline","diamond-outline","restaurant-outline"
   ];
 
   constructor(
@@ -51,10 +51,9 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
         this.dados = dados;
       },
       (erro) => {
-        console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível listar as metas`,
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',
@@ -66,12 +65,11 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    
     if (id) {
       this.dadoId = parseInt(id);
       this.lucroDespesaService.getDado(this.dadoId).subscribe((dado) => {
         this.dadoForm = this.initForm(dado);
-        this.icone = dado.icone;
+        this.icone = dado.icone;;
       });
     }
   }
@@ -85,27 +83,53 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
       descricao: new FormControl("Meta"),
-      data: new FormControl(dado?.data || new Date().toISOString()),
+      data: new FormControl(this.getFormattedDate(dado?.data) || this.getFormattedDate1(new Date())),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      icone: new FormControl(this.icone),
-      meta: new FormControl(null,Validators.required),
+      icone: new FormControl(dado?.icone || this.icone ,[Validators.required]),
+      meta: new FormControl(dado?.meta.id || null,Validators.required),
       tipo: new FormControl("M")
     });
   }
+
+  getFormattedDate1(date: Date): string {
+    
+    const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    localDate.setHours(0, 0, 0, 0);
+
+    return localDate.toISOString();
+  }
+  
+  getFormattedDate(dateString: any): string {
+    if (!dateString) {
+      return '';
+    }
+    const date = new Date(dateString);
+    return date.toISOString().substring(0, 10); // Obtém apenas a parte da data em formato ISO
+  }
+
+  onMetaChange(event: any) {
+    const metaId = event.detail.value;
+    const meta = this.dados.find(meta => meta.id == metaId);
+    const descricaoMetaSelecionada = meta ? meta.descricao : null;
+    this.metaSelecionada = descricaoMetaSelecionada ?? '';
+  }
+  
 
   onSubmit(tipo: string) {
     const dado: LucroDespesaInterface = {
       ...this.dadoForm.value,
       id: this.dadoId,
     };
+
+    dado.descricao =  this.metaSelecionada;
+
     this.lucroDespesaService.salvar(dado, tipo).subscribe(
       () => this.router.navigate(['movimentacao']),
       (erro) => {
-        console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

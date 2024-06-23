@@ -13,23 +13,19 @@
     <ion-row style="margin: 20px;">
       <form [formGroup]="dadoForm" (ngSubmit)="onSubmit()" style="width: 100%;">
         <ion-item>
-          <ion-label position="floating">Descrição:</ion-label>
-          <ion-input type="text" formControlName="descricao" [placeholder]="dadoForm.get('descricao')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+          <ion-input label="Descrição:" labelPlacement="stacked" type="text" formControlName="descricao" [placeholder]="dadoForm.get('descricao')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating">Valor:</ion-label>
-          <ion-input type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+          <ion-input label="Valor:" labelPlacement="stacked" type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
         </ion-item>
 
         <ion-item >
-          <ion-label position="floating">Parcela:</ion-label>
-          <ion-input type="number" formControlName="parcela" [placeholder]="dadoForm.get('parcela')?.errors?.['required'] ? 'Parcela Obrigatório' : ''"></ion-input>
+          <ion-input label="Parcela:" labelPlacement="stacked" type="number" formControlName="parcela" [placeholder]="dadoForm.get('parcela')?.errors?.['required'] ? 'Parcela Obrigatório' : ''"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="floating"></ion-label>
-          <ion-input type="date" formControlName="data"></ion-input>
+          <ion-input label="Data:" labelPlacement="stacked" type="date" formControlName="data"></ion-input>
         </ion-item>
 
         <ion-item>

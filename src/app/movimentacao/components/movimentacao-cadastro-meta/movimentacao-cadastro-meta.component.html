@@ -17,7 +17,7 @@
       
         <ion-list>
           <ion-item>
-            <ion-select placeholder="Metas" formControlName="meta">
+            <ion-select placeholder="Metas" formControlName="meta" (ionChange)="onMetaChange($event)" label-placement="floating">
               <div slot="label">Meta <ion-text color="danger">(*)</ion-text></div>
               <ion-select-option *ngFor="let dado of dados" value="{{dado.id}}">{{dado.descricao}}</ion-select-option>
              
@@ -27,28 +27,18 @@
       
 
       <ion-item>
-        <ion-label position="floating">Valor:</ion-label>
-        <ion-input type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+        <ion-input label="Valor:" labelPlacement="stacked" type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Selecione um ícone:</ion-label>
       </ion-item>
       
-      <ion-item>
-        <ion-segment formControlName="icone">
-          <ion-grid>
-            <ion-row *ngFor="let row of iconRows">
-              <ion-col *ngFor="let iconName of row" (click)="setSelectedIcon(iconName)">
-                <ion-segment-button [value]="iconName" 
-                                    [class.selected]="icone == iconName">
-                  <ion-icon [name]="iconName"></ion-icon>
-                </ion-segment-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+        <ion-segment formControlName="icone"  class="segment-wrap">
+          <ion-segment-button *ngFor="let iconName of iconRows" [value]="iconName" (click)="setSelectedIcon(iconName)">
+            <ion-icon [name]="iconName"></ion-icon>
+          </ion-segment-button>
         </ion-segment>
-      </ion-item>
 
       <ion-button expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
     </form>

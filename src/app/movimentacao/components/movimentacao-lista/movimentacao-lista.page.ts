@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   AlertController,
+  InfiniteScrollCustomEvent,
   ToastController,
   ViewDidLeave,
   ViewWillEnter,
@@ -21,7 +22,7 @@ import { ContasInterface } from 'src/app/contas/tipos/contas-interface';
 export class MovimentacaoListaComponent
   implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave
 {
-  dados: LucroDespesaInterface[] = [];
+  dados: LucroDespesaInterface[] | any = [] = [];
   metas: MetasInterface[] = [];
   contas: ContasInterface[] = [];
   isModalOpen = false;
@@ -30,6 +31,9 @@ export class MovimentacaoListaComponent
   tipo: string = '';
   conta: any;
   meta: any;
+  lastPage: number = 0;
+  page: number = 0;
+
   constructor(
     private alertController: AlertController,
     private toastController: ToastController,
@@ -40,6 +44,7 @@ export class MovimentacaoListaComponent
 
   ionViewWillEnter() {
     this.listar();
+    this.dados = [];
     this.carregarFiltros();
   }
 
@@ -61,21 +66,25 @@ export class MovimentacaoListaComponent
   aplicarFiltros() {
     this.conta == "T" ? this.conta = null: '';
     this.meta == "T" ? this.meta = null: '';
+    this.dados = [];
+    this.page = 1;
+    this.lastPage = 0;
     this.listar();
     this.setOpen(false)
   }
 
-  listar() {
-    const observable = this.lucroDespesaService.getDados(this.dataFinal,this.dataInicial,this.tipo,this.conta,this.meta);
+  listar(page = 1) {
+    const observable = this.lucroDespesaService.getDados(this.dataFinal,this.dataInicial,this.tipo,this.conta,this.meta,page);
     observable.subscribe(
       (dados) => {
-        this.dados = dados;
+        this.page = dados.page ?? 0;
+        this.lastPage = dados.lastPage ?? 0;
+        this.dados = [...this.dados, ...dados.data];
       },
       (erro) => {
-        console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível listar as movimentações`,
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',
@@ -109,10 +118,10 @@ export class MovimentacaoListaComponent
       (dados) => {
         this.metas = dados;
       });
-    const contas = this.contasService.getDados();
+    const contas = this.contasService.getDadosC();
     contas.subscribe(
       (dados) => {
-        // this.contas = dados;
+        this.contas = dados;
       });
   }
 
@@ -132,6 +141,17 @@ export class MovimentacaoListaComponent
             .then((t) => t.present());
         }
       );
+    }
+  }
+
+  onIonInfinite(ev: InfiniteScrollCustomEvent) {
+    if (this.page < this.lastPage) {
+      setTimeout(() => {
+        this.listar(this.page + 1)
+        ev.target.complete();
+      }, 500);
+    } else {
+      ev.target.complete();
     }
   }
 }

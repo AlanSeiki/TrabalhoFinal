@@ -17,9 +17,9 @@ export class LucroDespesaCadastroComponent implements OnInit {
   icone:string = 'home';
 
   iconRows = [
-    ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'logo-rss', 'logo-steam'],
-    ['wallet-outline', 'logo-apple', 'logo-xbox']
+    'home', 'game-controller-outline', 'airplane-outline',
+    'pizza-outline', 'people-circle-outline', 'car-sport-outline',
+    'wallet-outline', 'logo-apple', 'desktop-outline',"boat-outline","diamond-outline","restaurant-outline"
   ];
 
   constructor(
@@ -35,7 +35,7 @@ export class LucroDespesaCadastroComponent implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    
+
     if (id) {
       this.dadoId = parseInt(id);
       this.lucroDespesaService.getDado(this.dadoId).subscribe((dado) => {
@@ -53,13 +53,29 @@ export class LucroDespesaCadastroComponent implements OnInit {
   initForm(dado?: LucroDespesaInterface): FormGroup {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
-      descricao: new FormControl(dado?.descricao || '', Validators.required),
-      data: new FormControl(dado?.data || new Date().toISOString()),
+      descricao: new FormControl({value: dado?.descricao, disabled: this.tipo == 'M' ? true : false }|| '', Validators.required),
+      data: new FormControl(this.getFormattedDate(dado?.data) || this.getFormattedDate1(new Date())),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      icone: new FormControl(this.icone),
-      meta: new FormControl(null)
+      icone: new FormControl(dado?.icone || this.icone ,[Validators.required]),
+      meta: new FormControl(dado?.meta?.id || null),
     });
+  }
+
+  getFormattedDate1(date: Date): string {
+    
+    const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
+    localDate.setHours(0, 0, 0, 0);
+
+    return localDate.toISOString();
+  }
+  
+  getFormattedDate(dateString: any): string {
+    if (!dateString) {
+      return '';
+    }
+    const date = new Date(dateString);
+    return date.toISOString().substring(0, 10); // Obtém apenas a parte da data em formato ISO
   }
 
   onSubmit(tipo: string) {
@@ -73,7 +89,7 @@ export class LucroDespesaCadastroComponent implements OnInit {
       (error) => {
         this.toastController
           .create({
-            message: `Não foi possível salvar a movimentação ${error.message}`,
+            message: error.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

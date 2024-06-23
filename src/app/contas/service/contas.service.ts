@@ -19,6 +19,10 @@ export class ContasService {
     const dadosLocais = this.httpClient.get<Paginate>(this.url+`/paginate?page=${page}&limit=10`)
     return dadosLocais;
   }
+  getDadosC(): Observable<ContasInterface[]> {
+    const dadosLocais = this.httpClient.get<ContasInterface[]>(this.url)
+    return dadosLocais;
+  }
 
   getDado( id: number): Observable<ContasInterface> {
     return this.httpClient.get<ContasInterface>(`${this.url}/${id}`);

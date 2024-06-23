@@ -15,26 +15,17 @@ export class LucroDespesaService {
     private httpClient: HttpClient
   ) {}
 
-  getDados(dataFinal:string,dataInicial:string,tipo:string,conta:any,meta:any): Observable<LucroDespesaInterface[]> {
-    const dadosLocais = this.httpClient.get<LucroDespesaInterface[]>(this.url)
-  
-    return dadosLocais.pipe(
-      map(dadosLocais => {
-        const dataAtual1 = new Date(dataInicial)
-        const dataFinal1 = new Date(dataFinal)
-        var dadosLucro;
-        dadosLucro = dadosLocais.filter(item =>
-          (tipo === '' || item.tipo === tipo) &&
-          (dataInicial === '' || new Date(item.data) >= dataAtual1) &&
-          (dataFinal === '' || new Date(item.data) <= dataFinal1) &&
-          (conta == null || item.conta == conta) &&
-          (meta == null || item.meta == meta)
-        )
-        
+  getDados(dataFinal:string,dataInicial:string,tipo:string,conta:any,meta:any,page=1): Observable<Paginate> {
+    const params = {
+      dataFinal: dataFinal || '',
+      dataInicial: dataInicial || '',
+      tipo: tipo || '',
+      conta: conta || '',
+      meta: meta || ''
+    };
 
-        return dadosLucro;
-      })
-    );
+    const dadosLocais = this.httpClient.get<Paginate>(this.url+`/paginate?page=${page}&limit=15`,{params: params});
+    return dadosLocais;
   }
 
   getDadosSimplificado(page = 1, limit = 10): Observable<Paginate> {
@@ -81,7 +72,7 @@ export class LucroDespesaService {
   }
 
   private atualizar( dado: LucroDespesaInterface, tipo:string) {
-    dado.tipo = tipo == 'D' ? "D" : "L";
+    dado.tipo = tipo == 'D' ? "D" : tipo == 'L' ? "L" : "M";
     return this.httpClient.patch<{ message: string }>(`${this.url}/${dado.id}`, dado);
   }
 
