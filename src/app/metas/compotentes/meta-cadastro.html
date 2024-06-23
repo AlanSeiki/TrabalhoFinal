@@ -15,42 +15,29 @@
     <ion-row style="margin: 20px;">
       <form [formGroup]="dadoForm" (ngSubmit)="onSubmit()" style="width: 100%;">
         <ion-item>
-          <ion-label position="floating">Descrição:</ion-label>
-          <ion-input type="text" formControlName="descricao"></ion-input>
+          <ion-input label="Descrição:" labelPlacement="stacked"  type="text" formControlName="descricao" [placeholder]="dadoForm.get('descricao')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
         </ion-item>
   
         <ion-item>
-          <ion-label position="floating">Valor:</ion-label>
-          <ion-input type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+          <ion-input label="Valor:" labelPlacement="stacked" type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Data incial:</ion-label>
-          <ion-input type="date" formControlName="data_inicial"></ion-input>
+          <ion-input label="Data incial:" labelPlacement="stacked" type="date" formControlName="data_inicial"></ion-input>
         </ion-item>
 
         <ion-item>
-          <ion-label position="stacked">Data Final:</ion-label>
-          <ion-input type="date" formControlName="data_final"></ion-input>
+          <ion-input label="Data Final:" labelPlacement="stacked" type="date" formControlName="data_final"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Selecione um ícone:</ion-label>
         </ion-item>
         
-        <ion-item>
-          <ion-segment formControlName="icone">
-            <ion-grid>
-              <ion-row *ngFor="let row of iconRows">
-                <ion-col *ngFor="let iconName of row" (click)="setSelectedIcon(iconName)">
-                  <ion-segment-button [value]="iconName" 
-                                      [class.selected]="icone == iconName">
-                    <ion-icon [name]="iconName"></ion-icon>
-                  </ion-segment-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+          <ion-segment formControlName="icone"  class="segment-wrap">
+            <ion-segment-button *ngFor="let iconName of iconRows" [value]="iconName" (click)="setSelectedIcon(iconName)">
+              <ion-icon [name]="iconName"></ion-icon>
+            </ion-segment-button>
           </ion-segment>
-        </ion-item>
   
         <ion-button expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
       </form>

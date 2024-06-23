@@ -25,7 +25,7 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   iconRows = [
     'home', 'game-controller-outline', 'airplane-outline',
     'pizza-outline', 'people-circle-outline', 'car-sport-outline',
-    'wallet-outline', 'logo-apple', 'desktop-outline',"boat-outline","diamond-outline","restaurant-outline"
+    'wallet-outline', 'logo-apple', 'desktop-outline', "boat-outline", "diamond-outline", "restaurant-outline"
   ];
 
   constructor(
@@ -44,8 +44,8 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
     this.metas();
   }
 
-  metas(){
-   const observable = this.metasService.getDadosAtivo();
+  metas() {
+    const observable = this.metasService.getDadosAtivo();
     observable.subscribe(
       (dados) => {
         this.dados = dados;
@@ -75,9 +75,9 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
   }
 
   setSelectedIcon(iconName: string): void {
-      this.icone = iconName;
+    this.icone = iconName;
   }
-  
+
 
   initForm(dado?: LucroDespesaInterface): FormGroup {
     return new FormGroup({
@@ -86,20 +86,20 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
       data: new FormControl(this.getFormattedDate(dado?.data) || this.getFormattedDate1(new Date())),
       conta: new FormControl(null),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
-      icone: new FormControl(dado?.icone || this.icone ,[Validators.required]),
-      meta: new FormControl(dado?.meta.id || null,Validators.required),
+      icone: new FormControl(dado?.icone || this.icone, [Validators.required]),
+      meta: new FormControl(dado?.meta.id || null, Validators.required),
       tipo: new FormControl("M")
     });
   }
 
   getFormattedDate1(date: Date): string {
-    
+
     const localDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000));
     localDate.setHours(0, 0, 0, 0);
 
     return localDate.toISOString();
   }
-  
+
   getFormattedDate(dateString: any): string {
     if (!dateString) {
       return '';
@@ -114,7 +114,7 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
     const descricaoMetaSelecionada = meta ? meta.descricao : null;
     this.metaSelecionada = descricaoMetaSelecionada ?? '';
   }
-  
+
 
   onSubmit(tipo: string) {
     const dado: LucroDespesaInterface = {
@@ -122,10 +122,19 @@ export class MetaCadastroComponent implements OnInit, ViewWillEnter {
       id: this.dadoId,
     };
 
-    dado.descricao =  this.metaSelecionada;
+    dado.descricao = this.metaSelecionada;
 
     this.lucroDespesaService.salvar(dado, tipo).subscribe(
-      () => this.router.navigate(['movimentacao']),
+      (data: any) => {
+        this.toastController
+          .create({
+            message: data.message,
+            duration: 1500,
+            keyboardClose: true,
+            color: 'success',
+          }).then((t) => t.present());
+        this.router.navigate(['movimentacao'])
+      },
       (erro) => {
         this.toastController
           .create({

@@ -14,12 +14,12 @@ export class MetasCadastroComponent implements OnInit {
   dadoId: number | null;
   dadoForm: FormGroup;
   tipo: string;
-  icone:string = 'home';
+  icone: string = 'home';
 
   iconRows = [
-    ['home', 'game-controller-outline', 'airplane-outline'],
-    ['pizza-outline', 'people-circle-outline', 'car-sport-outline'],
-    ['wallet-outline', 'logo-apple', 'desktop-outline']
+    'home', 'game-controller-outline', 'airplane-outline',
+    'pizza-outline', 'people-circle-outline', 'car-sport-outline',
+    'wallet-outline', 'logo-apple', 'desktop-outline', "boat-outline", "diamond-outline", "restaurant-outline"
   ];
 
   constructor(
@@ -35,7 +35,7 @@ export class MetasCadastroComponent implements OnInit {
 
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    
+
     if (id) {
       this.dadoId = parseInt(id);
       this.metasService.getDado(this.dadoId).subscribe((dado) => {
@@ -46,23 +46,29 @@ export class MetasCadastroComponent implements OnInit {
   }
 
   setSelectedIcon(iconName: string): void {
-      this.icone = iconName;
+    this.icone = iconName;
   }
-  
+
 
   initForm(dado?: MetasInterface): FormGroup {
     return new FormGroup({
       id: new FormControl(dado?.id || null),
       descricao: new FormControl(dado?.descricao || '', Validators.required),
-      data_inicial: new FormControl(dado?.data_inicial,Validators.required),
-      data_final: new FormControl(dado?.data_final,Validators.required),
+      data_inicial: new FormControl(this.getFormattedDate(dado?.data_inicial), Validators.required),
+      data_final: new FormControl(this.getFormattedDate(dado?.data_final), Validators.required),
       valor: new FormControl(dado?.valor || null, [Validators.required, Validators.min(0)]),
       valor_mes: new FormControl(dado?.valor_mes),
       icone: new FormControl(dado?.icone || this.icone),
       ativo: new FormControl(true),
     });
   }
-
+  getFormattedDate(dateString: any): string {
+    if (!dateString) {
+      return '';
+    }
+    const date = new Date(dateString);
+    return date.toISOString().substring(0, 10); // Obtém apenas a parte da data em formato ISO
+  }
   onSubmit() {
     const dado: MetasInterface = {
       ...this.dadoForm.value,
@@ -70,12 +76,20 @@ export class MetasCadastroComponent implements OnInit {
     };
 
     this.metasService.salvar(dado).subscribe(
-      () => this.router.navigate(['metas']),
-      (erro) => {
-        console.error(erro);
+      (data: any) => {
         this.toastController
           .create({
-            message: `Não foi possível salvar a movimentação ${dado.descricao}`,
+            message: data.message,
+            duration: 1500,
+            keyboardClose: true,
+            color: 'success',
+          }).then((t) => t.present());
+        this.router.navigate(['metas'])
+      },
+      (erro) => {
+        this.toastController
+          .create({
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

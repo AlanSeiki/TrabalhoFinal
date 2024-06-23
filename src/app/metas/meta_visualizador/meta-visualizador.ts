@@ -26,7 +26,8 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private metasService: MetasService
+    private metasService: MetasService,
+    private toastController: ToastController,
   ) {
     
   }
@@ -100,7 +101,13 @@ export class MetasVisualizadorCadastroComponent implements OnInit {
               console.error('Elemento do gráfico não encontrado.');
             }
           } else {
-            console.error('Dados não são um array válido ou estão vazios.');
+            this.toastController
+            .create({
+              message: 'Não existem movimentações para está Meta',
+              duration: 2000,
+              keyboardClose: true,
+              color: 'success',
+            }).then((t) => t.present());
           }
         },
         // ...

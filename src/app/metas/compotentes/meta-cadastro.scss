@@ -1,0 +1,34 @@
+ion-segment-button.selected {
+    background-color: #fff;
+  }
+  ion-segment-button {
+    min-height: 70px;
+    border: 0!important;
+    line-height: 1.5rem !important;
+
+    padding-left: 0px;
+    padding-right: 0px;
+
+  }
+  ion-segment {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .in-segment {
+    flex: 1 0 25%;
+  }
+
+  .in-segment:first-of-type,
+  .in-segment:last-of-type {
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  .in-segment:nth-child(4) {
+    border-top-right-radius: 4px;
+  }
+
+  .in-segment:nth-child(5) {
+    border-left-width: 1px;
+    border-bottom-left-radius: 4px;
+  }

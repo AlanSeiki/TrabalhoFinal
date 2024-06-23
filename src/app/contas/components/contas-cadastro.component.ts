@@ -26,7 +26,7 @@ export class ContasCadastroComponent implements OnInit {
   iconRows = [
     'home', 'game-controller-outline', 'airplane-outline',
     'pizza-outline', 'people-circle-outline', 'car-sport-outline',
-    'wallet-outline', 'logo-apple', 'desktop-outline',"boat-outline","diamond-outline","restaurant-outline"
+    'wallet-outline', 'logo-apple', 'desktop-outline', "boat-outline", "diamond-outline", "restaurant-outline"
   ];
 
   constructor(
@@ -76,7 +76,7 @@ export class ContasCadastroComponent implements OnInit {
       valor: new FormControl(dado?.valor, [Validators.required, Validators.min(0)]),
       parcela: new FormControl(dado?.parcela, [Validators.required, Validators.min(0)]),
       data: new FormControl(this.getFormattedDate(dado?.data), [Validators.required]),
-      icone: new FormControl(dado?.icone || this.icone ,[Validators.required]),
+      icone: new FormControl(dado?.icone || this.icone, [Validators.required]),
     });
   }
 
@@ -100,7 +100,16 @@ export class ContasCadastroComponent implements OnInit {
     });
     await loading.present();
     this.contasService.salvar(dado).subscribe(
-      () => this.router.navigate(['contas']),
+      (data: any) => {
+        this.toastController
+          .create({
+            message: data.message,
+            duration: 1500,
+            keyboardClose: true,
+            color: 'success',
+          }).then((t) => t.present());
+        this.router.navigate(['contas'])
+      },
       (data) => {
         this.toastController
           .create({

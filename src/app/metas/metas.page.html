@@ -13,18 +13,18 @@
           <ion-icon name="{{dado.icone}}" size="large"></ion-icon>
         </div>
         <div style="width: 70%;">
-          <ion-label>Descrição: {{dado.descricao}}</ion-label>
+          <ion-label>{{dado.descricao}}</ion-label>
           <ion-label>Valor: R${{dado.valor}}</ion-label>
         </div>
-        <div>
-          <ion-buttons style="width: 20%;">
-            <ion-button color="primary" [routerLink]="['editar', dado.id]">
+        <div style="width: 30%;">
+          <ion-buttons >
+            <ion-button color="primary" [routerLink]="['editar', dado.id]" style="width: 30px;">
               <ion-icon name="create" slot="icon-only"></ion-icon> 
             </ion-button>
-            <ion-button color="primary" [routerLink]="['visualizar', dado.id]">
+            <ion-button color="primary" [routerLink]="['visualizar', dado.id]" style="width: 30px;">
               <ion-icon name="list-outline"  slot="icon-only"></ion-icon>
             </ion-button>
-            <ion-button color="primary" (click)="inativar(dado)">
+            <ion-button color="primary" (click)="inativar(dado)" style="width: 30px;">
               <ion-icon *ngIf="dado.ativo == false" name="power-outline" slot="icon-only" color="danger" ></ion-icon>
               <ion-icon *ngIf="dado.ativo == true" name="power-outline" slot="icon-only" color="success" ></ion-icon>
             </ion-button>

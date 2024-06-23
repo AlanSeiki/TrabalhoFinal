@@ -43,12 +43,21 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
   inativar(dado: MetasInterface){
     dado.ativo = dado.ativo == true ? false : true
     this.metasService.salvar(dado).subscribe(
-      () => this.router.navigate(['metas']),
+      (data: any) => {
+        this.toastController
+          .create({
+            message: data.message,
+            duration: 1500,
+            keyboardClose: true,
+            color: 'success',
+          }).then((t) => t.present());
+         this.router.navigate(['metas'])
+      },
       (erro) => {
         console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível inativar a meta ${dado.descricao}`,
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',
@@ -65,10 +74,9 @@ implements OnInit, ViewWillEnter, ViewDidLeave, ViewWillLeave, ViewDidLeave {
         this.dados = dados;
       },
       (erro) => {
-        console.error(erro);
         this.toastController
           .create({
-            message: `Não foi possível listar os metas`,
+            message: erro.error.message,
             duration: 5000,
             keyboardClose: true,
             color: 'danger',

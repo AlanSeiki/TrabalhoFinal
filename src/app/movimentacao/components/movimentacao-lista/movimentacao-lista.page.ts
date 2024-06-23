@@ -128,12 +128,22 @@ export class MovimentacaoListaComponent
   private excluir(dado: LucroDespesaInterface) {
     if (dado.id) {
       this.lucroDespesaService.excluir(dado.id).subscribe(
-        () => this.listar(),
-        (erro) => {
-          console.error(erro);
+        (data: any) => {
           this.toastController
             .create({
-              message: `Não foi possível excluir a movimentação ${dado.descricao}`,
+              message: data.message,
+              duration: 1500,
+              keyboardClose: true,
+              color: 'success',
+            }).then((t) => t.present());
+            this.dados = []
+            this.listar()
+        }        
+        ,
+        (erro) => {
+          this.toastController
+            .create({
+              message: erro.error.message,
               duration: 5000,
               keyboardClose: true,
               color: 'danger',

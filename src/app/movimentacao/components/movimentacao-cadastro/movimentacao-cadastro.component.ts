@@ -85,7 +85,16 @@ export class LucroDespesaCadastroComponent implements OnInit {
     };
 
     this.lucroDespesaService.salvar(dado, tipo).subscribe(
-      () => this.router.navigate(['movimentacao']),
+      (data: any) => {
+        this.toastController
+          .create({
+            message: data.message,
+            duration: 1500,
+            keyboardClose: true,
+            color: 'success',
+          }).then((t) => t.present());
+        this.router.navigate(['movimentacao'])
+      },
       (error) => {
         this.toastController
           .create({

@@ -39,46 +39,21 @@ export class MetasService {
   }
 
   getMovimetnacao(id: number): Observable<DadosAgrupadosPorMes[]> {
-    let url_mov = 'http://localhost:3000/listaGeral';
-    const dados = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
-    return dados.pipe(
-      map(dadosLocais => {
-        // Filtra os dados para considerar apenas itens do tipo 'M' com a meta específica
-        const dadosFiltrados = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id);
-        // Agrupa os dados por mês e calcula a soma para cada mês
-        const dadosAgrupados: DadosAgrupadosPorMes[] = [];
-  
-        dadosFiltrados.forEach(item => {
-          const mes = new Date(item.data).toISOString().slice(0, 7); // Obtém o ano e o mês
-          const indice = dadosAgrupados.findIndex(x => x.mes === mes);
-  
-          if (indice !== -1) {
-            // Se o mês já existe, adiciona o valor ao total existente
-            dadosAgrupados[indice].soma += item.valor;
-          } else {
-            // Se o mês não existe, cria um novo objeto de mês
-            dadosAgrupados.push({ mes, soma: item.valor });
-          }
-        });
-  
-        return dadosAgrupados;
-      })
-    );
+    let url_mov = `http://localhost:3000/movimentacao/movientacaoPorMes/${id}`;
+    const dados = this.httpClient.get<DadosAgrupadosPorMes[]>(url_mov)
+    return dados
   }
 
   getValor(id: number){
-    let url_mov = 'http://localhost:3000/listaGeral';
-    const dados = this.httpClient.get<LucroDespesaInterface[]>(url_mov)
+    let url_mov = `http://localhost:3000/movimentacao/movientacaoPorMes/${id}`;
+    const dados = this.httpClient.get<any[]>(url_mov)
     return dados.pipe(
       map(dadosLocais => {
-        // Filtra os dados para considerar apenas itens do tipo 'M' com a meta específica
-        const dadosFiltrados = dadosLocais.filter(item => item.tipo === 'M' && item.meta == id);
-        // Agrupa os dados por mês e calcula a soma para cada mês
         var valorTotal = 0;
-        dadosFiltrados.forEach(item => {
-          valorTotal+=item.valor
+        dadosLocais.forEach(item => {
+          valorTotal+=item.soma
         });
-  
+        
         return valorTotal;
       })
     );
@@ -89,15 +64,10 @@ export class MetasService {
   }
 
   private atualizar( dado: MetasInterface) {
-    return this.httpClient.put(`${this.url}/${dado.id}`, dado);
+    return this.httpClient.patch(`${this.url}/${dado.id}`, dado);
   }
 
   salvar( dado: MetasInterface ) {
-    const valorMeta = dado.valor;
-    const dataInicio = new Date(dado.data_inicial);
-    const dataFinal = new Date(dado.data_final);
-    const metaMensal = this.calcularValorMensal(valorMeta, dataInicio, dataFinal);
-    dado.valor_mes = metaMensal;
     if(dado.id) {
       return this.atualizar(dado);
     } else {
