@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar>
+    
+    <ion-title style="padding: 0;">
+      Cadastro de Movimentação 
+    </ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button 
+      text='' defaultHref="/movimentacao"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row style="margin: 20px;">
+    <ion-label *ngIf="tipo == 'D'">Despesa</ion-label>
+    <ion-label *ngIf="tipo == 'L'">Lucro</ion-label>
+    <ion-label *ngIf="tipo == 'M'">Meta</ion-label>
+    <form [formGroup]="dadoForm" (ngSubmit)="onSubmit(tipo)" style="width: 100%;">
+      <ion-item>
+        <ion-input  label="Descrição:" labelPlacement="stacked" type="text" formControlName="descricao" [placeholder]="dadoForm.get('descricao')?.errors?.['required'] ? 'Descrição é Obrigatório' : ''"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Valor:" labelPlacement="stacked" type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Selecione um ícone:</ion-label>
+      </ion-item>
+      
+        <ion-segment formControlName="icone"  class="segment-wrap">
+          <ion-segment-button *ngFor="let iconName of iconRows" [value]="iconName" (click)="setSelectedIcon(iconName)">
+            <ion-icon [name]="iconName"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+
+      <ion-button expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
+    </form>
+  </ion-row>
+</ion-content>

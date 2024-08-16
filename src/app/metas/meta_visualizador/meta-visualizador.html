@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+      
+      <ion-title style="padding: 0;">
+        Visualizador
+      </ion-title>
+      <ion-buttons slot="start">
+        <ion-back-button 
+        text='' defaultHref="/metas"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+  <div style="width: 100%; text-align: center;">
+    <div style="width: 100%;">
+      <h1 style="width: 100%;">{{descricao}}</h1>
+    </div>
+    <div style="width: 100%;">
+      <h1 style="width: 100%;">{{valor  | currency:'BRL':'symbol':'1.2-2' }}</h1>
+    </div>
+    <div class="marc">
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="porcentagemConcluida"><span class="spans">{{valorTotalN}}</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex;justify-content: center;align-items: center; margin-top: 20px;">
+    <div style="background-color: rgb(8, 8, 8);width: 90%;"><canvas id="myChart" width="90%" height="90%"></canvas></div>
+  </div>
+</ion-content>
+  

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Little Pig Golden</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-card style="border-radius: 10px;">
+        <ion-card-header style="padding-bottom: 0px;">
+          <ion-row>
+            <div style="width: 10%;">
+              <ion-icon name="{{icone}}" size="large" color="{{color}}"></ion-icon>
+            </div>
+            <div style="text-align: center; width: 90%;">
+              <ion-card-title color="{{color}}">Saldo: {{ saldo | currency:'BRL':'symbol':'1.2-2' }}</ion-card-title>
+            </div>
+          </ion-row>
+        </ion-card-header>
+        <ion-card-header style="text-align: center; padding: 10px; padding-top: 0px;">
+          <ion-row>
+          <ion-text color="success" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
+            <ion-col>
+              <h3 style="margin: 0px;">{{lucro | currency:'BRL':'symbol':'1.2-2' }}</h3>
+              <h5 style="margin: 0px;">Lucros</h5>
+            </ion-col>
+          </ion-text>
+          <ion-text color="danger" style="max-height: 70px!important;width: 50%;min-height: 70px!important;">
+            <ion-col>
+              <h3 style="margin: 0px;">{{despesa | currency:'BRL':'symbol':'1.2-2' }}</h3>
+              <h5 style="margin: 0px;">Despesas</h5>
+            </ion-col>
+          </ion-text>
+        </ion-row>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+    <ion-content role="feed" style="max-height: 400px; overflow-y: scroll; margin-left: 10%;">
+      <ion-list style="width: 90%;">
+        <ion-item *ngFor="let dado of dados" role="article">
+          <div style="margin-right: 5px;">
+            <ion-icon [name]="dado.icone" size="large"></ion-icon>
+          </div>
+          <div>
+            <ion-label>{{dado.descricao}}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'D'" color="danger">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'L'" color="success">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+            <ion-label *ngIf="dado.tipo == 'M'" color="tertiary">Valor: {{dado.valor | currency:'BRL':'symbol':'1.2-2' }}</ion-label>
+          </div>
+        </ion-item>
+        </ion-list>
+          <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+    </ion-content>
+</ion-content>

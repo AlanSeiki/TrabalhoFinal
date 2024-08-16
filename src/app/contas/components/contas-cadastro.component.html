@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button 
+        text='' defaultHref="/contas"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Contas</ion-title>
+      
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-row style="margin: 20px;">
+      <form [formGroup]="dadoForm" (ngSubmit)="onSubmit()" style="width: 100%;">
+        <ion-item>
+          <ion-input label="Descrição:" labelPlacement="stacked" type="text" formControlName="descricao" [placeholder]="dadoForm.get('descricao')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Valor:" labelPlacement="stacked" type="number" formControlName="valor" [placeholder]="dadoForm.get('valor')?.errors?.['required'] ? 'Valor Obrigatório' : ''"></ion-input>
+        </ion-item>
+
+        <ion-item >
+          <ion-input label="Parcela:" labelPlacement="stacked" type="number" formControlName="parcela" [placeholder]="dadoForm.get('parcela')?.errors?.['required'] ? 'Parcela Obrigatório' : ''"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-input label="Data:" labelPlacement="stacked" type="date" formControlName="data"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Selecione um ícone:</ion-label>
+        </ion-item>
+        
+          <ion-segment formControlName="icone"  class="segment-wrap">
+            <ion-segment-button *ngFor="let iconName of iconRows" [value]="iconName" (click)="setSelectedIcon(iconName)">
+              <ion-icon [name]="iconName"></ion-icon>
+            </ion-segment-button>
+          </ion-segment>
+  
+        <ion-button id="btnSalvar" expand="block" type="submit" [disabled]="dadoForm.invalid">Salvar</ion-button>
+      </form>
+    </ion-row>
+  </ion-content>
